@@ -8,11 +8,30 @@ use App\Service\EmailService;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Mailer\MailerInterface;
+use Symfony\Component\Mime\Email;
 use Symfony\Component\Routing\Annotation\Route;
 
 
 class PageController extends AbstractController
 {
+
+    /**
+     * @Route("/test-mail", name="test_mail")
+     */
+    public function testMail(MailerInterface $mailer): Response
+    {
+        $email = (new Email())
+            ->from('moussainssa@outlook.fr')
+            ->to('moussainssa@outlook.fr')
+            ->subject('Test depuis Symfony')
+            ->text('Ceci est un test');
+
+        $mailer->send($email);
+
+        return new Response('Mail envoyé ? Vérifie ta boîte !');
+    }
+
     /**
      * @Route("/services", name="app_services")
      */
@@ -63,7 +82,7 @@ class PageController extends AbstractController
     {
 
         if ($request->isMethod('POST')) {
-            
+
             $name = $request->request->get('name');
             $email = $request->request->get('email');
             $phone = $request->request->get('phone');
@@ -79,10 +98,10 @@ class PageController extends AbstractController
                 // Appel du service d'envoi d'e-mail
                 $emailService->envoyerContact($name, $email, $phone, $subject, $message);
                 $this->addFlash('success', '✅ Votre message a bien été envoyé.');
-                
+
             } catch (\Exception $e) {
                 $this->addFlash('danger', '❌ Une erreur est survenue lors de l’envoi de votre message.');
-                
+
             }
 
             return $this->redirectToRoute('app_contact');
