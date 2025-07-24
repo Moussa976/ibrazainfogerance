@@ -61,7 +61,7 @@ class ServiceFixtures extends Fixture
             $service->setIcon($data['icon']);
             $service->setShortDescription($data['short']);
             $service->setLongDescription($data['long']);
-            $service->setImage('https://source.unsplash.com/600x400/?network,technology');
+            $service->setImage($data['image']);
             $manager->persist($service);
         }
 
