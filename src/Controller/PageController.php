@@ -82,6 +82,8 @@ class PageController extends AbstractController
             }
 
             return $this->redirectToRoute('app_contact');
+        }else{
+            $this->addFlash('danger', '❌ Une erreur est survenue lors de l’envoi de votre message.');
         }
 
         return $this->render('pages/contact.html.twig');
