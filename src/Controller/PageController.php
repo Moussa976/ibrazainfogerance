@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Service;
 use App\Repository\ServiceRepository;
+use App\Service\EmailService;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -27,17 +28,17 @@ class PageController extends AbstractController
      * @Route("/services/{slug}", name="app_service_show")
      */
     public function serviceShow(string $slug, ServiceRepository $serviceRepository): Response
-{
-    $service = $serviceRepository->findOneBy(['slug' => $slug]);
+    {
+        $service = $serviceRepository->findOneBy(['slug' => $slug]);
 
-    if (!$service) {
-        throw $this->createNotFoundException('Service non trouvé.');
+        if (!$service) {
+            throw $this->createNotFoundException('Service non trouvé.');
+        }
+
+        return $this->render('pages/service_show.html.twig', [
+            'service' => $service,
+        ]);
     }
-
-    return $this->render('pages/service_show.html.twig', [
-        'service' => $service,
-    ]);
-}
 
     /**
      * @Route("/devis", name="app_devis")
@@ -58,33 +59,31 @@ class PageController extends AbstractController
     /**
      * @Route("/contact", name="app_contact", methods={"GET", "POST"})
      */
-    public function contact(Request $request): Response
+    public function contact(Request $request, EmailService $emailService): Response
     {
-        // Si le formulaire est soumis
         if ($request->isMethod('POST')) {
-            // On récupère les données du formulaire
             $name = $request->request->get('name');
             $email = $request->request->get('email');
             $phone = $request->request->get('phone');
             $subject = $request->request->get('subject');
             $message = $request->request->get('message');
 
-            // Validation simple
             if (empty($name) || empty($email) || empty($subject) || empty($message)) {
                 $this->addFlash('danger', 'Veuillez remplir tous les champs obligatoires.');
                 return $this->redirectToRoute('app_contact');
             }
 
-            // TODO : envoyer un e-mail ou enregistrer en base ici
+            try {
+                // Appel du service d'envoi d'e-mail
+                $emailService->envoyerContact($name, $email, $phone, $subject, $message);
+                $this->addFlash('success', '✅ Votre message a bien été envoyé.');
+            } catch (\Exception $e) {
+                $this->addFlash('danger', '❌ Une erreur est survenue lors de l’envoi de votre message.');
+            }
 
-            // Message de confirmation
-            $this->addFlash('success', 'Votre message concernant "' . htmlspecialchars($subject) . '" a bien été envoyé.');
-
-            // Redirection pour éviter le renvoi de formulaire
             return $this->redirectToRoute('app_contact');
         }
 
-        // Affichage de la page
         return $this->render('pages/contact.html.twig');
     }
 
