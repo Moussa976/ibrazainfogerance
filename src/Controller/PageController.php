@@ -60,12 +60,37 @@ class PageController extends AbstractController
     }
 
     /**
-     * @Route("/devis", name="app_devis")
+     * @Route("/devis", name="app_devis", methods={"GET", "POST"})
      */
-    public function devis(): Response
+    public function devis(Request $request, EmailService $emailService): Response
     {
+        if ($request->isMethod('POST')) {
+            $type = $request->request->get('type');
+            $company = $request->request->get('company');
+            $name = $request->request->get('name');
+            $email = $request->request->get('email');
+            $phone = $request->request->get('phone');
+            $subject = $request->request->get('subject');
+            $message = $request->request->get('message');
+
+            if (empty($type) || empty($name) || empty($email) || empty($subject) || empty($message)) {
+                $this->addFlash('danger', 'Veuillez remplir tous les champs obligatoires.');
+                return $this->redirectToRoute('app_devis');
+            }
+
+            try {
+                $emailService->envoyerDevis($type, $company, $name, $email, $phone, $subject, $message);
+                $this->addFlash('success', '✅ Votre demande de devis a bien été envoyée.');
+            } catch (\Exception $e) {
+                $this->addFlash('danger', '❌ Une erreur est survenue lors de l’envoi de votre demande.');
+            }
+
+            return $this->redirectToRoute('app_devis');
+        }
+
         return $this->render('pages/devis.html.twig');
     }
+
 
     /**
      * @Route("/apropos", name="app_apropos")

@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>Nouvelle demande de devis</title>
+</head>
+<body style="font-family: Arial, sans-serif; background-color: #f8f9fa; padding: 20px;">
+    <div style="max-width: 600px; margin: auto; background-color: white; padding: 30px; border-radius: 8px;">
+        <div style="text-align: center; margin-bottom: 20px;">
+            <img src="cid:logo_ibraza" alt="Logo Ibraza" style="max-height: 50px;">
+        </div>
+
+        <h2 style="color: #4d5c75;">📄 Nouvelle demande de devis</h2>
+
+        <p><strong>Type de client :</strong> {{ type|capitalize }}</p>
+        {% if company %}
+            <p><strong>Entreprise :</strong> {{ company }}</p>
+        {% endif %}
+        <p><strong>Nom :</strong> {{ name }}</p>
+        <p><strong>Email :</strong> {{ user_email }}</p>
+        <p><strong>Téléphone :</strong> {{ phone }}</p>
+        <p><strong>Objet :</strong> {{ subject }}</p>
+
+        <h3 style="margin-top: 30px;">📝 Détail de la demande :</h3>
+        <p style="white-space: pre-line;">{{ message }}</p>
+
+        <p style="margin-top: 40px; font-size: 0.9em; color: #888;">Ce message a été généré automatiquement depuis le formulaire de devis du site.</p>
+    </div>
+</body>
+</html>

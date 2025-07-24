@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>Confirmation de votre demande de devis</title>
+</head>
+<body style="font-family: Arial, sans-serif; background-color: #f4f4f4; padding: 20px;">
+    <div style="max-width: 600px; margin: auto; background-color: white; padding: 30px; border-radius: 8px;">
+        <div style="text-align: center; margin-bottom: 20px;">
+            <img src="cid:logo_ibraza" alt="Logo Ibraza" style="max-height: 50px;">
+        </div>
+
+        <h2 style="color: #4d5c75;">Merci pour votre demande, {{ name }} !</h2>
+
+        <p>Nous avons bien reçu votre demande de devis concernant :</p>
+        <p><strong>{{ subject }}</strong></p>
+
+        <p>Notre équipe va analyser votre besoin et reviendra vers vous dans les plus brefs délais.</p>
+
+        <hr style="margin: 30px 0;">
+
+        <h3>🔁 Récapitulatif :</h3>
+        <p><strong>Type :</strong> {{ type|capitalize }}</p>
+        {% if company %}
+            <p><strong>Entreprise :</strong> {{ company }}</p>
+        {% endif %}
+        <p><strong>Email :</strong> {{ user_email }}</p>
+        <p><strong>Téléphone :</strong> {{ phone }}</p>
+        <p><strong>Message :</strong><br>{{ message|nl2br }}</p>
+
+        <p style="margin-top: 40px; font-size: 0.9em; color: #888;">Ce message est une confirmation automatique.</p>
+    </div>
+</body>
+</html>

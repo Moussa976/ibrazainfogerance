@@ -16,16 +16,16 @@ class EmailService
     private string $adminEmail;
     private string $logoPath;
 
-public function __construct(
-    MailerInterface $mailer,
-    Environment $twig,
-    string $logoPath
-) {
-    $this->mailer = $mailer;
-    $this->twig = $twig;
-    $this->adminEmail = 'moussainssa@outlook.fr';//'contact@ibrazainfogerance.yt';
-    $this->logoPath = $logoPath;
-}
+    public function __construct(
+        MailerInterface $mailer,
+        Environment $twig,
+        string $logoPath
+    ) {
+        $this->mailer = $mailer;
+        $this->twig = $twig;
+        $this->adminEmail = 'moussainssa@outlook.fr';//'contact@ibrazainfogerance.yt';
+        $this->logoPath = $logoPath;
+    }
 
     public function envoyerContact(string $name, string $email, string $phone, string $subject, string $message): void
     {
@@ -45,7 +45,7 @@ public function __construct(
             'message' => $message,
         ];
 
-        $logoPath = $this->logoPath; 
+        $logoPath = $this->logoPath;
 
 
         // Mail admin
@@ -72,4 +72,41 @@ public function __construct(
         $this->mailer->send($userMessage);
 
     }
+
+    public function envoyerDevis(string $type, ?string $company, string $name, string $email, string $phone, string $subject, string $message): void
+    {
+        $context = [
+            'type' => $type,
+            'company' => $company,
+            'name' => $name,
+            'email_user' => $email, // évite le conflit avec "email"
+            'phone' => $phone,
+            'subject' => $subject,
+            'message' => $message,
+        ];
+
+        $logoPath = $this->logoPath;
+
+        $adminMessage = (new TemplatedEmail())
+            ->from(new Address($this->adminEmail, 'ibrazainfogerance.yt'))
+            ->to($this->adminEmail)
+            ->replyTo($email)
+            ->subject('📄 Nouvelle demande de devis : [' . $subject . ']')
+            ->htmlTemplate('emails/devis_admin.html.twig')
+            ->context($context)
+            ->embedFromPath($logoPath, 'logo_ibraza');
+
+        $this->mailer->send($adminMessage);
+
+        $userMessage = (new TemplatedEmail())
+            ->from(new Address($this->adminEmail, 'Ibraza Infogérance'))
+            ->to($email)
+            ->subject('✅ Confirmation de votre demande de devis')
+            ->htmlTemplate('emails/devis_user.html.twig')
+            ->context($context)
+            ->embedFromPath($logoPath, 'logo_ibraza');
+
+        $this->mailer->send($userMessage);
+    }
+
 }
