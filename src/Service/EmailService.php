@@ -23,7 +23,7 @@ class EmailService
     ) {
         $this->mailer = $mailer;
         $this->twig = $twig;
-        $this->adminEmail = 'moussainssa@outlook.fr';//'contact@ibrazainfogerance.yt';
+        $this->adminEmail = 'moussa@halogari.yt';//'contact@ibrazainfogerance.yt';
         $this->logoPath = $logoPath;
     }
 

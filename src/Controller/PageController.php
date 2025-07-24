@@ -22,7 +22,7 @@ class PageController extends AbstractController
     public function testMail(MailerInterface $mailer): Response
     {
         $email = (new Email())
-            ->from('moussainssa@outlook.fr')
+            ->from('moussa@halogari.yt')
             ->to('moussainssa@outlook.fr')
             ->subject('Test depuis Symfony')
             ->text('Ceci est un test');
