@@ -39,7 +39,7 @@ public function __construct(
         // Données communes à injecter dans les templates
         $context = [
             'name' => $name,
-            'email' => $email,
+            'user_email' => $email, // ← modifié ici
             'phone' => $phone,
             'subject' => $subject,
             'message' => $message,
@@ -54,7 +54,7 @@ public function __construct(
             ->to($this->adminEmail)
             ->replyTo($email)
             ->subject('📩 Nouveau message reçu : [' . $subject . ']')
-            ->htmlTemplate('email/contact_admin.html.twig')
+            ->htmlTemplate('emails/contact_admin.html.twig')
             ->context($context)
             ->embedFromPath($logoPath, 'logo_ibraza');
 
@@ -65,7 +65,7 @@ public function __construct(
             ->from(new Address($this->adminEmail, 'Ibraza Infogérance'))
             ->to($email)
             ->subject('✅ Confirmation de votre message à Ibraza Infogérance')
-            ->htmlTemplate('email/contact_user.html.twig')
+            ->htmlTemplate('emails/contact_user.html.twig')
             ->context($context)
             ->embedFromPath($logoPath, 'logo_ibraza');
 

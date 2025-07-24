@@ -61,7 +61,9 @@ class PageController extends AbstractController
      */
     public function contact(Request $request, EmailService $emailService): Response
     {
+
         if ($request->isMethod('POST')) {
+            
             $name = $request->request->get('name');
             $email = $request->request->get('email');
             $phone = $request->request->get('phone');
@@ -77,13 +79,13 @@ class PageController extends AbstractController
                 // Appel du service d'envoi d'e-mail
                 $emailService->envoyerContact($name, $email, $phone, $subject, $message);
                 $this->addFlash('success', '✅ Votre message a bien été envoyé.');
+                
             } catch (\Exception $e) {
                 $this->addFlash('danger', '❌ Une erreur est survenue lors de l’envoi de votre message.');
+                
             }
 
             return $this->redirectToRoute('app_contact');
-        }else{
-            $this->addFlash('danger', '❌ Une erreur est survenue lors de l’envoi de votre message.');
         }
 
         return $this->render('pages/contact.html.twig');

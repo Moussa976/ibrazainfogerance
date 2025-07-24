@@ -22,7 +22,7 @@
                 <p>Nous avons bien reçu votre message concernant <strong>"{{ subject }}"</strong>. Voici un récapitulatif :</p>
 
                 <div style="background-color: #f8f8f8; padding: 15px; border-radius: 5px; font-size: 15px; margin-bottom: 20px;">
-                    📧 <strong>Email :</strong> {{ email }}<br>
+                    📧 <strong>Email :</strong> {{ user_email }}<br>
                     📞 <strong>Téléphone :</strong> {{ phone|default('Non renseigné') }}<br>
                     📝 <strong>Message :</strong><br>
                     <div style="margin-top: 5px; white-space: pre-line;">{{ message }}</div>
