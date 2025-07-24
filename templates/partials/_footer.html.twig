@@ -1,0 +1,90 @@
+<!-- Footer -->
+<footer class="bg-gray-900 text-white py-8">
+	<div class="container mx-auto px-4">
+		<div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+			<div>
+				<a href="{{ path('app_home') }}" class="flex items-center mb-4">
+					<img src="{{ asset('images/logo.png') }}" alt="Logo Ibraza" class="h-10 mr-3">
+
+				</a>
+				<p class="text-gray-400">Votre partenaire de confiance pour la gestion de votre infrastructure informatique et réseaux.</p>
+			</div>
+
+			<div>
+				<h4 class="text-lg font-bold mb-4">Liens rapides</h4>
+				<ul class="space-y-2">
+					<li>
+						<a href="#accueil" class="text-gray-400 hover:text-white transition">Accueil</a>
+					</li>
+					<li>
+						<a href="#services" class="text-gray-400 hover:text-white transition">Services</a>
+					</li>
+					<li>
+						<a href="#apropos" class="text-gray-400 hover:text-white transition">À propos</a>
+					</li>
+					<li>
+						<a href="#contact" class="text-gray-400 hover:text-white transition">Contact</a>
+					</li>
+				</ul>
+			</div>
+
+			<div>
+				<h4 class="text-lg font-bold mb-4">Services</h4>
+				<ul class="space-y-2">
+                    <li>
+							<a href="{{ path('app_service_show', { slug: "infogerance-reseaux" }) }}" class="text-gray-400 hover:text-white transition">
+								Infogérance & Réseaux
+							</a>
+						</li>
+                        <li>
+							<a href="{{ path('app_service_show', { slug: "securite-informatique" }) }}" class="text-gray-400 hover:text-white transition">
+								Sécurité Informatique
+							</a>
+						</li>
+                        <li>
+							<a href="{{ path('app_service_show', { slug: "videosurveillance" }) }}" class="text-gray-400 hover:text-white transition">
+								Vidéosurveillance
+							</a>
+						</li>
+
+					<li>
+						<a href="{{ path('app_services') }}" class="inline-block mt-2 text-sm text-primary hover:text-white transition font-medium">
+							→ Voir tous les services
+						</a>
+					</li>
+				</ul>
+			</div>
+
+			<div>
+				<h4 class="text-lg font-bold mb-4">Newsletter</h4>
+				<p class="text-gray-400 mb-4">Abonnez-vous pour recevoir nos actualités et offres spéciales.</p>
+				<form class="flex">
+					<input type="email" placeholder="Votre email" class="px-4 py-2 rounded-l-lg focus:outline-none text-gray-800 w-full">
+					<button type="submit" class="bg-primary hover:bg-primary/90 px-4 py-2 rounded-r-lg transition duration-300">
+						<i class="fas fa-paper-plane"></i>
+					</button>
+				</form>
+			</div>
+		</div>
+
+		<div class="border-t border-gray-800 mt-10 pt-6 flex flex-col md:flex-row justify-between items-center">
+			<p class="text-gray-400 text-sm mb-4 md:mb-0">©
+				{{ "now"|date('Y') }}
+				Ibraza Infogérance. Tous droits réservés.</p>
+			<div class="flex space-x-6">
+				<a href="#" class="text-gray-400 hover:text-white transition">Mentions légales</a>
+				<a href="#" class="text-gray-400 hover:text-white transition">Politique de confidentialité</a>
+				<a href="#" class="text-gray-400 hover:text-white transition">CGV</a>
+			</div>
+		</div>
+	</div>
+</footer>
+
+<!-- Floating contact button -->
+<div id="scrollToTopBtn" class="fixed bottom-6 right-6 z-50 hidden">
+    <a href="#top"
+       class="bg-secondary hover:bg-secondary/90 text-white p-4 rounded-full shadow-lg flex items-center justify-center transition duration-300 transform hover:scale-110"
+       aria-label="Retour en haut" title="Haut de page">
+        <i class="fas fa-arrow-up text-xl"></i>
+    </a>
+</div>

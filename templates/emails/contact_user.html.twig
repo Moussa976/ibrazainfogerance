@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>Confirmation de message - Ibraza Infogérance</title>
+</head>
+<body style="font-family: Arial, sans-serif; background-color: #f4f4f4; padding: 30px; color: #333;">
+
+    <!-- Logo centré -->
+    <div style="text-align: center; margin-bottom: 20px;">
+        <img src="cid:logo_ibraza" alt="Ibraza Infogérance" style="width: 180px; height: auto;">
+    </div>
+
+    <!-- Contenu principal -->
+    <table width="100%" style="max-width: 600px; margin: auto; background-color: #fff; border-radius: 8px; padding: 30px; box-shadow: 0 2px 10px rgba(0,0,0,0.05);">
+        <tr>
+            <td>
+                <h2 style="color: #3e5889;">📩 Confirmation de votre message</h2>
+
+                <p>Bonjour <strong>{{ name }}</strong>,</p>
+
+                <p>Nous avons bien reçu votre message concernant <strong>"{{ subject }}"</strong>. Voici un récapitulatif :</p>
+
+                <div style="background-color: #f8f8f8; padding: 15px; border-radius: 5px; font-size: 15px; margin-bottom: 20px;">
+                    📧 <strong>Email :</strong> {{ email }}<br>
+                    📞 <strong>Téléphone :</strong> {{ phone|default('Non renseigné') }}<br>
+                    📝 <strong>Message :</strong><br>
+                    <div style="margin-top: 5px; white-space: pre-line;">{{ message }}</div>
+                </div>
+
+                <p>Notre équipe vous répondra dans les plus brefs délais.</p>
+
+                <p style="margin-top: 30px;">Cordialement,<br>
+                <strong style="color: #ba2a32;">L’équipe Ibraza Infogérance</strong></p>
+
+                <p style="text-align: center; font-size: 14px; color: #666; margin-top: 40px;">
+                    💼 Ibraza Infogérance – Votre partenaire IT de confiance à Mayotte.
+                </p>
+            </td>
+        </tr>
+    </table>
+</body>
+</html>

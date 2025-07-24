@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>Nouveau message - Ibraza Infogérance</title>
+</head>
+<body style="font-family: Arial, sans-serif; background-color: #f4f4f4; padding: 30px; color: #333;">
+
+    <!-- Logo centré -->
+    <div style="text-align: center; margin-bottom: 20px;">
+        <img src="cid:logo_ibraza" alt="Ibraza Infogérance" style="width: 180px; height: auto;">
+    </div>
+
+    <table width="100%" style="max-width: 600px; margin: auto; background-color: #fff; border-radius: 8px; padding: 30px; box-shadow: 0 2px 10px rgba(0,0,0,0.05);">
+        <tr>
+            <td>
+                <h2 style="color: #3e5889;">📨 Nouveau message reçu via le site</h2>
+
+                <p><strong>Nom :</strong> {{ name }}</p>
+                <p><strong>Email :</strong> {{ email }}</p>
+                <p><strong>Téléphone :</strong> {{ phone ?: 'Non renseigné' }}</p>
+                <p><strong>Objet :</strong> {{ subject }}</p>
+
+                <hr style="margin: 20px 0;">
+
+                <p><strong>Message :</strong></p>
+                <div style="white-space: pre-line; background-color: #f8f8f8; padding: 15px; border-radius: 5px;">
+                    {{ message }}
+                </div>
+
+                <p style="text-align: center; font-size: 14px; color: #666; margin-top: 30px;">
+                    ✉️ Reçu via le formulaire de contact - <a href="https://ibrazainfogerance.yt" style="color: #ba2a32; text-decoration: none;">ibrazainfogerance.yt</a>
+                </p>
+            </td>
+        </tr>
+    </table>
+</body>
+</html>

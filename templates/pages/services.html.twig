@@ -1,0 +1,39 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Nos services - Ibraza Infogérance
+{% endblock %}
+
+{% block body %}
+	<section class="py-20 bg-gray-50">
+		<div class="container mx-auto px-4">
+			<div class="text-center mb-16">
+				<h2 class="text-3xl md:text-4xl font-bold text-secondary mb-4">Nos Services</h2>
+				<div class="w-20 h-1 bg-primary mx-auto mb-6"></div>
+				<p class="text-gray-600 max-w-2xl mx-auto">Découvrez les prestations professionnelles proposées par Ibraza Infogérance.</p>
+			</div>
+
+			<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-8">
+				{% for service in services %}
+					<article class="bg-white rounded-lg overflow-hidden shadow-md hover:shadow-lg transition duration-300 service-card">
+						<a href="{{ path('app_service_show', { slug: service.slug }) }}" class="block">
+							{% if service.image %}
+								<img src="{{ service.image }}" alt="{{ service.title }}" class="w-full h-48 object-cover">
+							{% endif %}
+							<div class="p-6">
+								<div class="text-secondary mb-2">
+									<i class="{{ service.icon }} text-3xl"></i>
+								</div>
+								<h3 class="text-xl font-bold mb-2 text-primary hover:underline">{{ service.title }}</h3>
+								<p class="text-gray-600">{{ service.shortDescription }}</p>
+							</div>
+						</a>
+					</article>
+				{% else %}
+					<p class="col-span-3 text-center text-gray-500">Aucun service disponible pour le moment.</p>
+				{% endfor %}
+			</div>
+			<!-- CTA -->
+			{% include "partials/_cta.html.twig" %}
+		</div>
+	</section>
+{% endblock %}

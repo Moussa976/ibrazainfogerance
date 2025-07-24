@@ -1,0 +1,89 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}À propos - Ibraza Infogérance
+{% endblock %}
+
+{% block body %}
+	<section class="py-20 bg-gray-50">
+		<div class="container mx-auto px-4">
+			<div class="text-center mb-16">
+				<h2 class="text-3xl md:text-4xl font-bold text-secondary mb-4">À propos</h2>
+				<div class="w-20 h-1 bg-primary mx-auto mb-6"></div>
+				<p class="text-gray-600 max-w-2xl mx-auto">
+					Découvrez qui nous sommes, notre mission et nos engagements au service de votre performance informatique.
+				</p>
+			</div>
+
+			<div
+				class="flex flex-col lg:flex-row items-center gap-10">
+				<!-- Image -->
+				<div class="lg:w-1/2">
+					<img src="https://images.unsplash.com/photo-1519389950473-47ba0277781c?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="Équipe informatique" class="rounded-lg shadow-md w-full">
+				</div>
+
+				<!-- Texte -->
+				<div class="lg:w-1/2">
+					<h3 class="text-2xl font-bold text-primary mb-4">Notre vision</h3>
+					<p class="text-gray-700 mb-4">
+						Ibraza Infogérance (2i) est une entreprise spécialisée dans la gestion des infrastructures informatiques et réseaux.
+												                    Nous accompagnons les professionnels dans leur transition numérique avec des solutions sur mesure.
+					</p>
+					<p class="text-gray-700">
+						Forts de nombreuses années d'expérience, nous apportons à nos clients un accompagnement technique fiable, réactif et humain.
+					</p>
+				</div>
+			</div>
+
+			<!-- Avantages -->
+			<div
+				class="grid grid-cols-1 sm:grid-cols-2 gap-6 mt-16">
+				<!-- Expertise technique -->
+				<div class="flex items-start">
+					<div class="bg-secondary/10 p-3 rounded-full mr-4">
+						<i class="fas fa-microchip text-secondary text-lg"></i>
+					</div>
+					<div>
+						<h4 class="font-bold mb-1 text-primary">Expertise technique</h4>
+						<p class="text-gray-600 text-sm">Notre équipe maîtrise les infrastructures réseau, les serveurs et les solutions de cybersécurité.</p>
+					</div>
+				</div>
+
+				<!-- Réactivité -->
+				<div class="flex items-start">
+					<div class="bg-secondary/10 p-3 rounded-full mr-4">
+						<i class="fas fa-bolt text-secondary text-lg"></i>
+					</div>
+					<div>
+						<h4 class="font-bold mb-1 text-primary">Réactivité</h4>
+						<p class="text-gray-600 text-sm">Une intervention rapide en cas de panne ou besoin urgent. Support 6j/7, réponse en moins de 24h.</p>
+					</div>
+				</div>
+
+				<!-- Approche client -->
+				<div class="flex items-start">
+					<div class="bg-secondary/10 p-3 rounded-full mr-4">
+						<i class="fas fa-handshake text-secondary text-lg"></i>
+					</div>
+					<div>
+						<h4 class="font-bold mb-1 text-primary">Approche personnalisée</h4>
+						<p class="text-gray-600 text-sm">Nous adaptons nos solutions à chaque client, particulier ou entreprise.</p>
+					</div>
+				</div>
+
+				<!-- Support continu -->
+				<div class="flex items-start">
+					<div class="bg-secondary/10 p-3 rounded-full mr-4">
+						<i class="fas fa-life-ring text-secondary text-lg"></i>
+					</div>
+					<div>
+						<h4 class="font-bold mb-1 text-primary">Support continu</h4>
+						<p class="text-gray-600 text-sm">Assistance disponible toute l'année pour assurer le suivi et la continuité de vos services.</p>
+					</div>
+				</div>
+
+			</div>
+			<!-- CTA -->
+			<div class="mt-12">{% include "partials/_cta.html.twig" %}</div>
+		</div>
+	</section>
+{% endblock %}

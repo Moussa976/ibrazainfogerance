@@ -1,0 +1,131 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Contact - Ibraza Infogérance
+{% endblock %}
+
+{% block body %}
+	<section class="py-20 bg-gray-50">
+		<div class="container mx-auto px-4">
+			<div class="text-center mb-16">
+				<h2 class="text-3xl md:text-4xl font-bold text-secondary mb-4">Nous contacter</h2>
+				<div class="w-20 h-1 bg-primary mx-auto mb-6"></div>
+				<p class="text-gray-600 max-w-2xl mx-auto">
+					Pour toute question, information ou besoin d'assistance, vous pouvez nous joindre facilement via ce formulaire ou par nos coordonnées ci-dessous.
+				</p>
+			</div>
+
+			{% for message in app.flashes('success') %}
+				<div class="mb-6 p-4 bg-green-100 text-green-800 rounded">
+					{{ message }}
+				</div>
+			{% endfor %}
+
+			<div
+				class="flex flex-col lg:flex-row gap-10">
+				<!-- Formulaire -->
+				<div class="lg:w-1/2">
+					<form action="{{ path('app_contact') }}" method="post" class="bg-white p-8 rounded-lg shadow-md">
+						<div class="mb-6">
+							<label for="name" class="block text-gray-700 font-medium mb-2">Nom complet</label>
+							<input type="text" name="name" id="name" placeholder="Ex. : Jean Dupont" required class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary">
+						</div>
+						<div class="mb-6">
+							<label for="email" class="block text-gray-700 font-medium mb-2">Email</label>
+							<input type="email" name="email" id="email" placeholder="Ex. : jean.dupont@email.com" required class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary">
+						</div>
+						<div class="mb-6">
+							<label for="phone" class="block text-gray-700 font-medium mb-2">Téléphone</label>
+							<input type="tel" name="phone" id="phone" placeholder="Ex. : 06 12 34 56 78" required class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary">
+						</div>
+						<div class="mb-6">
+							<label for="subject" class="block text-gray-700 font-medium mb-2">Objet</label>
+							<input type="text" name="subject" id="subject" placeholder="Ex. : Demande d'information, assistance..." required class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary">
+						</div>
+						<div class="mb-6">
+							<label for="message" class="block text-gray-700 font-medium mb-2">Message</label>
+							<textarea name="message" id="message" rows="5" placeholder="Décrivez votre besoin ou posez votre question ici..." required class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary"></textarea>
+						</div>
+						<div>
+							<button type="submit" class="bg-primary hover:bg-primary/90 text-white font-bold py-3 px-6 rounded-lg transition duration-300 w-full">
+								Envoyer le message
+							</button>
+						</div>
+					</form>
+				</div>
+
+				<!-- Coordonnées -->
+				<div class="lg:w-1/2">
+					<div class="bg-white p-8 rounded-lg shadow-md h-full">
+						<h3 class="text-xl font-bold text-primary mb-6">Nos coordonnées</h3>
+						<div class="space-y-6">
+							<div class="flex items-start">
+								<div class="bg-secondary/10 p-3 rounded-full mr-4">
+									<i class="fas fa-map-marker-alt text-secondary"></i>
+								</div>
+								<div>
+									<h4 class="font-bold text-primary/90 mb-1">Adresse</h4>
+									<p class="text-gray-600">1456 Route départementale, Mtsamboro 97630, Mayotte</p>
+								</div>
+							</div>
+
+							<div class="flex items-start">
+								<div class="bg-secondary/10 p-3 rounded-full mr-4">
+									<i class="fas fa-phone-alt text-secondary"></i>
+								</div>
+								<div>
+									<h4 class="font-bold text-primary/90 mb-1">Téléphone</h4>
+									<p class="text-gray-600">0269 60 67 08</p>
+									<h4 class="font-bold text-primary/90 mb-1">Portable</h4>
+									<p class="text-gray-600">0639 02 18 60</p>
+								</div>
+							</div>
+
+							<div class="flex items-start">
+								<div class="bg-secondary/10 p-3 rounded-full mr-4">
+									<i class="fas fa-envelope text-secondary"></i>
+								</div>
+								<div>
+									<h4 class="font-bold text-primary/90 mb-1">Email</h4>
+									<p class="text-gray-600">contact@ibrazainfogerance.yt</p>
+								</div>
+							</div>
+
+							<div class="flex items-start">
+								<div class="bg-secondary/10 p-3 rounded-full mr-4">
+									<i class="fas fa-clock text-secondary"></i>
+								</div>
+								<div>
+									<h4 class="font-bold text-primary/90 mb-1">Horaires</h4>
+									<p class="text-gray-600">Lundi - Jeudi : 8h à 12h et 14h à 17h</p>
+									<p class="text-gray-600">Vendredi : 8h à 11h30 et 13h30 à 17h</p>
+									<p class="text-gray-600">Samedi: 8h - 16h</p>
+								</div>
+							</div>
+						</div>
+
+						<div class="mt-8">
+							<h4 class="font-bold mb-4">Suivez-nous</h4>
+							<div class="flex space-x-4">
+								<a href="https://www.facebook.com/profile.php?id=100089623243573" class="bg-secondary/10 hover:bg-primary/20 text-secondary hover:text-primary p-3 rounded-full transition duration-300">
+									<i class="fab fa-facebook-f"></i>
+								</a>
+								<a href="https://www.linkedin.com/company/ibraza-infogerance/about/" class="bg-secondary/10 hover:bg-primary/20 text-secondary hover:text-primary p-3 rounded-full transition duration-300">
+									<i class="fab fa-linkedin-in"></i>
+								</a>
+								<a href="https://www.instagram.com/ibraza.infogerance/" class="bg-secondary/10 hover:bg-primary/20 text-secondary hover:text-primary p-3 rounded-full transition duration-300">
+									<i class="fab fa-instagram"></i>
+								</a>
+							</div>
+						</div>
+
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+
+	<!-- Google Map -->
+	<div class="h-96 w-full">
+		<iframe src="https://www.google.com/maps?q=1456+Route+d%C3%A9partementale,+Mtsamboro+97630,+Mayotte&output=embed" width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+	</div>
+{% endblock %}

@@ -1,0 +1,76 @@
+<!-- Header -->
+<header class="bg-white shadow-md sticky top-0 z-50">
+    <div class="container mx-auto px-4 py-3 flex justify-between items-center">
+        <a href="{{ path('app_home') }}" class="flex items-center">
+            <img src="{{ asset('images/logo.png') }}" alt="Logo Ibraza Infogérance" class="h-10 mr-3">
+
+        </a>
+
+        <button id="menu-btn" class="md:hidden focus:outline-none">
+            <i class="fas fa-bars text-2xl text-secondary"></i>
+        </button>
+
+        <nav class="hidden md:flex space-x-8 items-center">
+            <a href="{{ path('app_home') }}"
+               class="{% if app.request.attributes.get('_route') == 'app_home' %}text-secondary font-medium{% else %}text-gray-600 hover:text-secondary{% endif %} transition">
+                Accueil
+            </a>
+
+            <a href="{{ path('app_services') }}"
+               class="{% if app.request.attributes.get('_route') == 'app_services' or app.request.attributes.get('_route') == 'app_service_show' %}text-secondary font-medium{% else %}text-gray-600 hover:text-secondary{% endif %} transition">
+                Services
+            </a>
+
+            <a href="{{ path('app_apropos') }}"
+               class="{% if app.request.attributes.get('_route') == 'app_apropos' %}text-secondary font-medium{% else %}text-gray-600 hover:text-secondary{% endif %} transition">
+                À propos
+            </a>
+
+            {% if app.request.attributes.get('_route') == 'app_home' %}
+                <a href="#contact" class="text-gray-600 hover:text-secondary transition">Contact</a>
+            {% else %}
+                <a href="{{ path('app_contact') }}"
+                   class="{% if app.request.attributes.get('_route') == 'app_contact' %}text-secondary font-medium{% else %}text-gray-600 hover:text-secondary{% endif %} transition">
+                    Contact
+                </a>
+            {% endif %}
+
+            <a href="{{ path('app_devis') }}"
+               class="ml-4 bg-secondary hover:bg-secondary/90 text-white font-bold py-2 px-4 rounded-lg transition duration-300">
+                Demande de devis
+            </a>
+        </nav>
+    </div>
+
+    <!-- Mobile menu -->
+    <div id="mobile-menu" class="hidden md:hidden bg-white py-4 px-4 shadow-lg">
+        <a href="{{ path('app_home') }}"
+           class="block py-2 {% if app.request.attributes.get('_route') == 'app_home' %}text-secondary font-medium{% else %}text-gray-600 hover:text-secondary{% endif %}">
+            Accueil
+        </a>
+
+        <a href="{{ path('app_services') }}"
+           class="block py-2 {% if app.request.attributes.get('_route') == 'app_services' %}text-secondary font-medium{% else %}text-gray-600 hover:text-secondary{% endif %}">
+            Services
+        </a>
+
+        <a href="{{ path('app_apropos') }}"
+           class="block py-2 {% if app.request.attributes.get('_route') == 'app_apropos' %}text-secondary font-medium{% else %}text-gray-600 hover:text-secondary{% endif %}">
+            À propos
+        </a>
+
+        {% if app.request.attributes.get('_route') == 'app_home' %}
+            <a href="#contact" class="block py-2 text-gray-600 hover:text-secondary">Contact</a>
+        {% else %}
+            <a href="{{ path('app_contact') }}"
+               class="block py-2 {% if app.request.attributes.get('_route') == 'app_contact' %}text-secondary font-medium{% else %}text-gray-600 hover:text-secondary{% endif %}">
+                Contact
+            </a>
+        {% endif %}
+
+        <a href="{{ path('app_devis') }}"
+           class="block mt-2 bg-secondary hover:bg-secondary/90 text-white text-center py-2 px-4 rounded-lg">
+            Demander un devis
+        </a>
+    </div>
+</header>

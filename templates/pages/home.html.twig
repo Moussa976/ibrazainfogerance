@@ -1,0 +1,240 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Accueil - Ibraza Infogérance
+{% endblock %}
+
+{% block body %}
+	<!-- Hero Section -->
+	<section id="accueil" class="hero min-h-screen flex items-center justify-center text-white">
+		<div class="container mx-auto px-4 text-center">
+			<h1 class="text-4xl md:text-6xl font-bold mb-6 animate-bounce-slow">Votre partenaire en infogérance</h1>
+			<p class="text-xl md:text-2xl mb-8 max-w-3xl mx-auto">Ibraza Infogérance s'occupe de votre infrastructure informatique et réseaux de A à Z durant toute l'année.</p>
+			<div class="flex flex-col sm:flex-row justify-center gap-4">
+				<a href="#contact" class="bg-primary hover:bg-primary/90 text-white font-bold py-3 px-6 rounded-lg transition duration-300 transform hover:scale-105">Nous contacter</a>
+				<a href="#services" class="bg-transparent hover:bg-secondary hover:text-white text-secondary font-bold py-3 px-6 border-2 border-secondary rounded-lg transition duration-300 transform hover:scale-105">Nos services</a>
+			</div>
+		</div>
+	</section>
+
+	<!-- Services Section -->
+	<section id="services" class="py-20 bg-gray-50">
+		<div class="container mx-auto px-4">
+			<div class="text-center mb-16">
+				<h2 class="text-3xl md:text-4xl font-bold text-secondary mb-4">Nos Services</h2>
+				<div class="w-20 h-1 bg-primary mx-auto mb-6"></div>
+				<p class="text-gray-600 max-w-2xl mx-auto">Nous proposons une gamme complète de services pour répondre à tous vos besoins informatiques.</p>
+			</div>
+
+			<div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-8 mb-8">
+
+				{% for service in services|slice(0, 4) %}
+					<article class="bg-white rounded-lg overflow-hidden shadow-md hover:shadow-lg transition duration-300 service-card">
+						<a href="{{ path('app_service_show', { slug: service.slug }) }}" class="block">
+							{% if service.image %}
+								<img src="{{ service.image }}" alt="{{ service.title }}" class="w-full h-48 object-cover">
+							{% endif %}
+							<div class="p-6">
+								<div class="text-secondary mb-2">
+									<i class="{{ service.icon }} text-3xl"></i>
+								</div>
+								<h3 class="text-xl font-bold mb-2 text-primary hover:underline">{{ service.title }}</h3>
+								<p class="text-gray-600">{{ service.shortDescription }}</p>
+							</div>
+						</a>
+					</article>
+				{% else %}
+					<p class="col-span-3 text-center text-gray-500">Aucun service disponible pour le moment.</p>
+				{% endfor %}
+
+			</div>
+			<div class="text-center">
+				<a href="{{ path('app_services') }}" class="inline-block bg-primary hover:bg-primary/90 text-white font-bold py-3 px-6 rounded-lg transition duration-300">Voir tous les services</a>
+			</div>
+		</div>
+	</section>
+
+	<!-- About Section -->
+	<section id="apropos" class="py-20 bg-white">
+		<div class="container mx-auto px-4">
+			<div class="flex flex-col lg:flex-row items-center">
+				<div class="lg:w-1/2 mb-10 lg:mb-0 lg:pr-10">
+					<img src="https://images.unsplash.com/photo-1519389950473-47ba0277781c?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="Équipe Ibraza Infogérance" class="rounded-lg shadow-xl w-full">
+				</div>
+				<div class="lg:w-1/2">
+					<h2 class="text-3xl md:text-4xl font-bold text-secondary mb-6">À propos de nous</h2>
+					<div class="w-20 h-1 bg-primary mb-6"></div>
+					<p class="text-gray-600 mb-6">Ibraza Infogérance (2i) est une entreprise spécialisée dans la gestion d'infrastructures informatiques et réseaux. Notre mission est d'accompagner nos clients dans la digitalisation de leurs activités en leur offrant des solutions sur mesure.</p>
+					<p class="text-gray-600 mb-8">Fort de plusieurs années d'expérience, notre équipe de professionnels qualifiés met son expertise à votre service pour garantir la performance, la sécurité et la disponibilité de vos systèmes informatiques.</p>
+
+					<div
+						class="grid grid-cols-1 sm:grid-cols-2 gap-6 mb-8">
+
+						<!-- Expertise technique -->
+						<div class="flex items-start">
+							<div class="bg-secondary/10 p-3 rounded-full mr-4">
+								<i class="fas fa-microchip text-secondary text-lg"></i>
+							</div>
+							<div>
+								<h4 class="font-bold mb-1 text-primary">Expertise technique</h4>
+								<p class="text-gray-600 text-sm">Notre équipe maîtrise les infrastructures réseau, les serveurs et les solutions de cybersécurité.</p>
+							</div>
+						</div>
+
+						<!-- Réactivité -->
+						<div class="flex items-start">
+							<div class="bg-secondary/10 p-3 rounded-full mr-4">
+								<i class="fas fa-bolt text-secondary text-lg"></i>
+							</div>
+							<div>
+								<h4 class="font-bold mb-1 text-primary">Réactivité</h4>
+								<p class="text-gray-600 text-sm">Une intervention rapide en cas de panne ou besoin urgent. Support 6j/7, réponse en moins de 24h.</p>
+							</div>
+						</div>
+
+						<!-- Approche client -->
+						<div class="flex items-start">
+							<div class="bg-secondary/10 p-3 rounded-full mr-4">
+								<i class="fas fa-handshake text-secondary text-lg"></i>
+							</div>
+							<div>
+								<h4 class="font-bold mb-1 text-primary">Approche personnalisée</h4>
+								<p class="text-gray-600 text-sm">Nous adaptons nos solutions à chaque client, particulier ou entreprise.</p>
+							</div>
+						</div>
+
+						<!-- Support continu -->
+						<div class="flex items-start">
+							<div class="bg-secondary/10 p-3 rounded-full mr-4">
+								<i class="fas fa-life-ring text-secondary text-lg"></i>
+							</div>
+							<div>
+								<h4 class="font-bold mb-1 text-primary">Support continu</h4>
+								<p class="text-gray-600 text-sm">Assistance disponible toute l'année pour assurer le suivi et la continuité de vos services.</p>
+							</div>
+						</div>
+
+					</div>
+
+
+					<a href="#contact" class="inline-block bg-primary hover:bg-primary/90 text-white font-bold py-3 px-6 rounded-lg transition duration-300">En savoir plus</a>
+				</div>
+			</div>
+		</div>
+	</section>
+
+	<!-- Stats Section -->
+	<section class="py-16 bg-primary text-white">
+		<div class="container mx-auto px-4">
+			<div class="grid grid-cols-1 md:grid-cols-3 gap-8 text-center">
+				<div class="p-6">
+					<div class="text-4xl text-white font-bold mb-2" id="client-count">0</div>
+					<p class="text-blue-200">Clients satisfaits</p>
+				</div>
+				<div class="p-6">
+					<div class="text-4xl text-white font-bold mb-2" id="project-count">0</div>
+					<p class="text-blue-200">Projets réalisés</p>
+				</div>
+				<div class="p-6">
+					<div class="text-4xl text-white font-bold mb-2" id="support-count">0</div>
+					<p class="text-blue-200">Interventions/an</p>
+				</div>
+			</div>
+		</div>
+	</section>
+
+	<!-- Contact Section -->
+	<section id="contact" class="py-20 bg-gray-50">
+		<div class="container mx-auto px-4">
+			<div class="text-center mb-16">
+				<h2 class="text-3xl md:text-4xl font-bold text-secondary mb-4">Contact & Devis</h2>
+				<div class="w-20 h-1 bg-primary mx-auto mb-6"></div>
+				<p class="text-gray-600 max-w-2xl mx-auto">Nous sommes à votre disposition pour répondre à toutes vos questions, établir un devis personnalisé et vous proposer des solutions adaptées.</p>
+			</div>
+
+			<div class="flex flex-col lg:flex-row gap-10">
+				<div
+					class="lg:w-1/2 flex items-center justify-center">
+					<!-- CTA -->
+					{% include "partials/_cta.html.twig" %}
+				</div>
+
+
+				<div class="lg:w-1/2">
+					<div class="bg-white p-8 rounded-lg shadow-md h-full">
+						<button onclick="toggleContactInfo()" class="flex items-center justify-between w-full text-left text-primary font-bold text-xl focus:outline-none">
+							<span>Nos coordonnées</span>
+							<i id="toggle-icon" class="fas fa-chevron-down transition-transform duration-300"></i>
+						</button>
+
+						<div id="contact-info" class="space-y-6 hidden mt-6">
+							<div class="flex items-start">
+								<div class="bg-secondary/10 p-3 rounded-full mr-4">
+									<i class="fas fa-map-marker-alt text-secondary"></i>
+								</div>
+								<div>
+									<h4 class="font-bold text-primary/90 mb-1">Adresse</h4>
+									<p class="text-gray-600">1456 Route départementale, Mtsamboro 97630, Mayotte</p>
+								</div>
+							</div>
+
+							<div class="flex items-start">
+								<div class="bg-secondary/10 p-3 rounded-full mr-4">
+									<i class="fas fa-phone-alt text-secondary"></i>
+								</div>
+								<div>
+									<h4 class="font-bold text-primary/90 mb-1">Téléphone</h4>
+									<p class="text-gray-600">0269 60 67 08</p>
+									<h4 class="font-bold text-primary/90 mb-1">Portable</h4>
+									<p class="text-gray-600">0639 02 18 60</p>
+								</div>
+							</div>
+
+							<div class="flex items-start">
+								<div class="bg-secondary/10 p-3 rounded-full mr-4">
+									<i class="fas fa-envelope text-secondary"></i>
+								</div>
+								<div>
+									<h4 class="font-bold text-primary/90 mb-1">Email</h4>
+									<p class="text-gray-600">contact@ibrazainfogerance.yt</p>
+								</div>
+							</div>
+
+							<div class="flex items-start">
+								<div class="bg-secondary/10 p-3 rounded-full mr-4">
+									<i class="fas fa-clock text-secondary"></i>
+								</div>
+								<div>
+									<h4 class="font-bold text-primary/90 mb-1">Horaires</h4>
+									<p class="text-gray-600">Lundi - Jeudi : 8h à 12h et 14h à 17h</p>
+									<p class="text-gray-600">Vendredi : 8h à 11h30 et 13h30 à 17h</p>
+									<p class="text-gray-600">Samedi: 8h - 16h</p>
+								</div>
+							</div>
+
+							<div class="mt-8">
+								<h4 class="font-bold mb-4">Suivez-nous</h4>
+								<div class="flex space-x-4">
+									<a href="https://www.facebook.com/profile.php?id=100089623243573" class="bg-secondary/10 hover:bg-primary/20 text-secondary hover:text-primary p-3 rounded-full transition duration-300">
+										<i class="fab fa-facebook-f"></i>
+									</a>
+									<a href="https://www.linkedin.com/company/ibraza-infogerance/about/" class="bg-secondary/10 hover:bg-primary/20 text-secondary hover:text-primary p-3 rounded-full transition duration-300">
+										<i class="fab fa-linkedin-in"></i>
+									</a>
+									<a href="https://www.instagram.com/ibraza.infogerance/" class="bg-secondary/10 hover:bg-primary/20 text-secondary hover:text-primary p-3 rounded-full transition duration-300">
+										<i class="fab fa-instagram"></i>
+									</a>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+
+	<!-- Map Section -->
+	<div class="h-96 w-full">
+		<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3936.294234017171!2d45.067842!3d-12.692613!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x219cbd4ac3ef2a4b%3A0x9b0ab861b0669e37!2s1456%20Route%20d%C3%A9partementale%2C%20Mtsamboro%2097630%2C%20Mayotte!5e0!3m2!1sfr!2syt!4v1721733856430!5m2!1sfr!2syt" width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+	</div>
+
+{% endblock %}
