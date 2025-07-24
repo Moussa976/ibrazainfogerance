@@ -14,16 +14,18 @@ class EmailService
     private MailerInterface $mailer;
     private Environment $twig;
     private string $adminEmail;
+    private string $logoPath;
 
-    private string $projectDir;
-
-    public function __construct(MailerInterface $mailer, Environment $twig, ParameterBagInterface $params)
-    {
-        $this->mailer = $mailer;
-        $this->twig = $twig;
-        $this->adminEmail = 'moussainssa@outlook.fr';//'contact@ibrazainfogerance.yt';
-         $this->projectDir = $params->get('kernel.project_dir'); 
-    }
+public function __construct(
+    MailerInterface $mailer,
+    Environment $twig,
+    string $logoPath
+) {
+    $this->mailer = $mailer;
+    $this->twig = $twig;
+    $this->adminEmail = 'moussainssa@outlook.fr';//'contact@ibrazainfogerance.yt';
+    $this->logoPath = $logoPath;
+}
 
     public function envoyerContact(string $name, string $email, string $phone, string $subject, string $message): void
     {
@@ -43,7 +45,7 @@ class EmailService
             'message' => $message,
         ];
 
-        $logoPath = $this->projectDir . '/public/images/logo_ibraza.png'; 
+        $logoPath = $this->logoPath; 
 
 
         // Mail admin
