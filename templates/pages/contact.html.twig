@@ -45,6 +45,16 @@
 							<label for="message" class="block text-gray-700 font-medium mb-2">Message</label>
 							<textarea name="message" id="message" rows="5" placeholder="Décrivez votre besoin ou posez votre question ici..." required class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary"></textarea>
 						</div>
+						<hr>
+						<div class="mb-6">
+							<label class="inline-flex items-start space-x-2">
+								<input type="checkbox" name="privacy" required class="mt-1">
+								<span class="text-sm text-gray-700">
+									J’accepte que mes informations soient utilisées pour traiter ma demande, conformément à la
+									<a href="{{ path('app_politique_confidentialite') }}" class="text-primary underline">politique de confidentialité</a>.
+								</span>
+							</label>
+						</div>
 						<div>
 							<button type="submit" class="bg-primary hover:bg-primary/90 text-white font-bold py-3 px-6 rounded-lg transition duration-300 w-full">
 								Envoyer le message
@@ -106,14 +116,17 @@
 						<div class="mt-8">
 							<h4 class="font-bold mb-4">Suivez-nous</h4>
 							<div class="flex space-x-4">
-								<a href="https://www.facebook.com/profile.php?id=100089623243573" class="bg-secondary/10 hover:bg-primary/20 text-secondary hover:text-primary p-3 rounded-full transition duration-300">
+								<a href="https://www.facebook.com/profile.php?id=100089623243573" target="_blank" class="bg-secondary/10 hover:bg-primary/20 text-secondary hover:text-primary p-3 rounded-full transition duration-300">
 									<i class="fab fa-facebook-f"></i>
 								</a>
-								<a href="https://www.linkedin.com/company/ibraza-infogerance/about/" class="bg-secondary/10 hover:bg-primary/20 text-secondary hover:text-primary p-3 rounded-full transition duration-300">
+								<a href="https://www.linkedin.com/company/ibraza-infogerance/about/" target="_blank" class="bg-secondary/10 hover:bg-primary/20 text-secondary hover:text-primary p-3 rounded-full transition duration-300">
 									<i class="fab fa-linkedin-in"></i>
 								</a>
-								<a href="https://www.instagram.com/ibraza.infogerance/" class="bg-secondary/10 hover:bg-primary/20 text-secondary hover:text-primary p-3 rounded-full transition duration-300">
+								<a href="https://www.instagram.com/ibraza.infogerance/" target="_blank" class="bg-secondary/10 hover:bg-primary/20 text-secondary hover:text-primary p-3 rounded-full transition duration-300">
 									<i class="fab fa-instagram"></i>
+								</a>
+								<a href="https://www.tiktok.com/@ibraza.infogerance" target="_blank" class="bg-secondary/10 hover:bg-primary/20 text-secondary hover:text-primary p-3 rounded-full transition duration-300">
+									<i class="fab fa-tiktok"></i>
 								</a>
 							</div>
 						</div>

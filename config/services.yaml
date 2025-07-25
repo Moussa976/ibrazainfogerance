@@ -16,3 +16,8 @@ services:
     App\Service\EmailService:
         arguments:
             $logoPath: '%ibraza.logo_path%'
+
+    App\Service\BrevoService:
+        arguments:
+            $brevoApiKey: '%env(BREVO_API_KEY)%'
+            $brevoListId: '%env(BREVO_LIST_ID)%'

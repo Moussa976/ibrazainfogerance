@@ -26,16 +26,17 @@
         
     {% block stylesheets %}{% endblock %}
 </head>
-<body id="top" class="font-sans antialiased text-gray-800">
+<body id="top" class="flex flex-col min-h-screen font-sans antialiased text-gray-800">
 
     {% include 'partials/_navbar.html.twig' %}
 
-    {% block body %}{% endblock %}
+    <main class="flex-grow">
+        {% block body %}{% endblock %}
+    </main>
 
     {% include 'partials/_footer.html.twig' %}
 
     <script src="{{ asset('js/js.js') }}"></script>
     {% block javascripts %}{% endblock %}
-
 </body>
 </html>

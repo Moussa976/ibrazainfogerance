@@ -135,5 +135,54 @@ class PageController extends AbstractController
         return $this->render('pages/contact.html.twig');
     }
 
+    /**
+     * @Route("/mentions-legales", name="app_mentions")
+     */
+    public function mentions(): Response
+    {
+        return $this->render('pages/mentions.html.twig');
+    }
+
+    /**
+     * @Route("/politique-de-confidentialite", name="app_politique_confidentialite")
+     */
+    public function politiqueConfidentialite(): Response
+    {
+        return $this->render('pages/politique_confidentialite.html.twig');
+    }
+
+    /**
+     * @Route("/conditions-generales", name="app_cgv")
+     */
+    public function cgv(): Response
+    {
+        return $this->render('pages/cgv.html.twig');
+    }
+
+    /**
+ * @Route("/newsletter", name="app_newsletter", methods={"POST"})
+ */
+public function newsletter(Request $request): Response
+{
+	$email = $request->request->get('email');
+	$token = $request->request->get('_token');
+
+	if (!$this->isCsrfTokenValid('newsletter_form', $token)) {
+		$this->addFlash('danger', 'Le formulaire a expiré. Veuillez réessayer.');
+		return $this->redirectToRoute('app_home');
+	}
+
+	if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+		$this->addFlash('danger', 'Adresse e-mail invalide.');
+		return $this->redirectToRoute('app_home');
+	}
+
+	// TODO : enregistrer en base (entité NewsletterSubscriber), envoyer confirmation si souhaité
+
+	$this->addFlash('success', '✅ Merci ! Vous êtes bien inscrit à la newsletter.');
+	return $this->redirectToRoute('app_home');
+}
+
+
 
 }
