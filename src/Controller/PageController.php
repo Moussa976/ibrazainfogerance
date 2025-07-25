@@ -21,17 +21,22 @@ class PageController extends AbstractController
      * @Route("/test-mail", name="test_mail")
      */
     public function testMail(MailerInterface $mailer): Response
-{
-    $email = (new \Symfony\Component\Mime\Email())
-        ->from('contact@ibrazainfogerance.yt')
-        ->to('moussainssa@outlook.fr')
-        ->subject('✅ Test envoi mail Symfony')
-        ->text('Bonjour Moussa, ceci est un test d’envoi depuis Symfony Mailer.');
+    {
+        try {
+            $email = (new Email())
+                ->from('contact@ibrazainfogerance.yt')
+                ->to('moussainssa@outlook.fr')
+                ->subject('Test mail')
+                ->text('Ceci est un test simple');
 
-    $mailer->send($email);
+            $mailer->send($email);
 
-    return new Response('✅ Mail envoyé !');
-}
+            return new Response('✅ Mail envoyé');
+        } catch (\Exception $e) {
+            return new Response('❌ Erreur : ' . $e->getMessage());
+        }
+    }
+
 
     /**
      * @Route("/services", name="app_services")
