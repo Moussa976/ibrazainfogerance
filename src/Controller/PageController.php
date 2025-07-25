@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Service;
 use App\Repository\ServiceRepository;
+use App\Service\BrevoService;
 use App\Service\EmailService;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -160,28 +161,31 @@ class PageController extends AbstractController
     }
 
     /**
- * @Route("/newsletter", name="app_newsletter", methods={"POST"})
- */
-public function newsletter(Request $request): Response
-{
-	$email = $request->request->get('email');
-	$token = $request->request->get('_token');
+     * @Route("/newsletter", name="app_newsletter", methods={"POST"})
+     */
+    public function newsletter(Request $request, BrevoService $brevo): Response
+    {
+        $email = $request->request->get('email');
+        $token = $request->request->get('_token');
 
-	if (!$this->isCsrfTokenValid('newsletter_form', $token)) {
-		$this->addFlash('danger', 'Le formulaire a expiré. Veuillez réessayer.');
-		return $this->redirectToRoute('app_home');
-	}
+        if (!$this->isCsrfTokenValid('newsletter_form', $token)) {
+            $this->addFlash('danger', 'Le formulaire a expiré. Veuillez réessayer.');
+            return $this->redirectToRoute('app_home');
+        }
 
-	if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
-		$this->addFlash('danger', 'Adresse e-mail invalide.');
-		return $this->redirectToRoute('app_home');
-	}
+        if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+            $this->addFlash('danger', 'Adresse e-mail invalide.');
+            return $this->redirectToRoute('app_home');
+        }
 
-	// TODO : enregistrer en base (entité NewsletterSubscriber), envoyer confirmation si souhaité
+        if ($brevo->subscribe($email)) {
+            $this->addFlash('success', '✅ Merci ! Vous êtes bien inscrit à notre newsletter.');
+        } else {
+            $this->addFlash('danger', '❌ Une erreur est survenue. Merci de réessayer plus tard.');
+        }
 
-	$this->addFlash('success', '✅ Merci ! Vous êtes bien inscrit à la newsletter.');
-	return $this->redirectToRoute('app_home');
-}
+        return $this->redirectToRoute('app_home');
+    }
 
 
 
