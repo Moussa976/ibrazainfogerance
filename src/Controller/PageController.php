@@ -26,7 +26,7 @@ class PageController extends AbstractController
         try {
             $email = (new Email())
                 ->from(new Address('contact@ibrazainfogerance.yt', 'Ibraza Infogérance'))
-                ->to('moussainssa@outlook.fr')
+                ->to('moussainssa@gmail.com')
                 ->subject('Test mail')
                 ->text('Ceci est un test simple');
 
