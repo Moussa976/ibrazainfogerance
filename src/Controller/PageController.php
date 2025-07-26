@@ -10,6 +10,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Mailer\MailerInterface;
+use Symfony\Component\Mime\Address;
 use Symfony\Component\Mime\Email;
 use Symfony\Component\Routing\Annotation\Route;
 
@@ -24,7 +25,7 @@ class PageController extends AbstractController
     {
         try {
             $email = (new Email())
-                ->from('contact@ibrazainfogerance.yt')
+                ->from(new Address('contact@ibrazainfogerance.yt', 'Ibraza Infogérance'))
                 ->to('moussainssa@outlook.fr')
                 ->subject('Test mail')
                 ->text('Ceci est un test simple');

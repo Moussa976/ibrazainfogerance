@@ -50,7 +50,7 @@ class EmailService
 
         // Mail admin
         $adminMessage = (new TemplatedEmail())
-            ->from(new Address($this->adminEmail, 'ibrazainfogerance.yt'))
+            ->from(new Address('contact@ibrazainfogerance.yt', 'Ibraza Infogérance'))
             ->to($this->adminEmail)
             ->replyTo($email)
             ->subject('📩 Nouveau message reçu : [' . $subject . ']')
@@ -62,7 +62,7 @@ class EmailService
 
         // Mail utilisateur
         $userMessage = (new TemplatedEmail())
-            ->from(new Address($this->adminEmail, 'Ibraza Infogérance'))
+            ->from(new Address('contact@ibrazainfogerance.yt', 'Ibraza Infogérance'))
             ->to($email)
             ->subject('✅ Confirmation de votre message à Ibraza Infogérance')
             ->htmlTemplate('emails/contact_user.html.twig')
@@ -88,7 +88,7 @@ class EmailService
         $logoPath = $this->logoPath;
 
         $adminMessage = (new TemplatedEmail())
-            ->from(new Address($this->adminEmail, 'ibrazainfogerance.yt'))
+            ->from(new Address('contact@ibrazainfogerance.yt', 'Ibraza Infogérance'))
             ->to($this->adminEmail)
             ->replyTo($email)
             ->subject('📄 Nouvelle demande de devis : [' . $subject . ']')
@@ -99,7 +99,8 @@ class EmailService
         $this->mailer->send($adminMessage);
 
         $userMessage = (new TemplatedEmail())
-            ->from(new Address($this->adminEmail, 'Ibraza Infogérance'))
+            ->from(new Address('contact@ibrazainfogerance.yt', 'Ibraza Infogérance'))
+
             ->to($email)
             ->subject('✅ Confirmation de votre demande de devis')
             ->htmlTemplate('emails/devis_user.html.twig')
