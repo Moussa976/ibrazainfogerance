@@ -38,7 +38,7 @@ class EmailService
             'phone' => $phone,
             'subject' => $subject,
             'message' => $message,
-            'logoPath' => $this->logoPath,
+            'logoPath' => 'https://ibrazainfogerance.yt/images/logo_ibraza.png',
         ];
 
         // Envoi à l’admin
@@ -68,7 +68,7 @@ class EmailService
             'phone' => $phone,
             'subject' => $subject,
             'message' => $message,
-            'logoPath' => $this->logoPath,
+            'logoPath' => 'https://ibrazainfogerance.yt/images/logo_ibraza.png',
         ];
 
         $this->brevo->envoyer(
