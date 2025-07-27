@@ -14,14 +14,12 @@ class BrevoMailerService
 
     private LoggerInterface $logger;
 
-public function __construct(HttpClientInterface $client, string $apiKey, LoggerInterface $logger)
-{
-    $this->client = $client;
-    $this->apiKey = $apiKey;
-    $this->logger = $logger;
-}
-
-
+    public function __construct(HttpClientInterface $client, string $apiKey, LoggerInterface $logger)
+    {
+        $this->client = $client;
+        $this->apiKey = $apiKey;
+        $this->logger = $logger;
+    }
 
     public function envoyer(string $toEmail, string $toName, string $subject, string $htmlContent, string $fromEmail = 'contact@ibrazainfogerance.yt', string $fromName = 'Ibraza Infogérance'): bool
     {
@@ -48,13 +46,17 @@ public function __construct(HttpClientInterface $client, string $apiKey, LoggerI
                 ]
             ]);
 
-            // Retourne vrai si code 201 (email créé/envoyé)
+            // DUMP la réponse brute de l’API Brevo (contenu + code HTTP)
+            dump('Status: ' . $response->getStatusCode());
+            dump('Body: ' . $response->getContent(false)); // false = désactive le throw
+            die(); // bloque ici pour lecture directe
+
             return $response->getStatusCode() === 201;
         } catch (\Throwable $e) {
-            // Pour voir le message d’erreur dans le navigateur ou les logs
-            dump('Erreur Brevo API : ' . $e->getMessage());
-            return false;
+            dump('Erreur API : ' . $e->getMessage());
+            die();
         }
     }
+
 
 }
