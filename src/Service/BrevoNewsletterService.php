@@ -1,11 +1,11 @@
 <?php
 
-// src/Service/BrevoService.php
+// src/Service/BrevoNewsletterService.php
 namespace App\Service;
 
 use Symfony\Contracts\HttpClient\HttpClientInterface;
 
-class BrevoService
+class BrevoNewsletterService
 {
     private string $apiKey;
     private string $listId;

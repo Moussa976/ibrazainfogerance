@@ -26,9 +26,6 @@ class ReseauSocial
     /** @ORM\Column(type="string", length=100, nullable=true) */
     private $icon;
 
-    /** @ORM\Column(type="integer") */
-    private $orderIndex = 0;
-
     public function getId(): ?int
     {
         return $this->id;
@@ -67,15 +64,5 @@ class ReseauSocial
         return $this;
     }
 
-    public function getOrderIndex(): ?int
-    {
-        return $this->orderIndex;
-    }
-
-    public function setOrderIndex(int $orderIndex): self
-    {
-        $this->orderIndex = $orderIndex;
-        return $this;
-    }
 
 }

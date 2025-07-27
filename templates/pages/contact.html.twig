@@ -14,11 +14,6 @@
 				</p>
 			</div>
 
-			{% for message in app.flashes('success') %}
-				<div class="mb-6 p-4 bg-green-100 text-green-800 rounded">
-					{{ message }}
-				</div>
-			{% endfor %}
 
 			<div
 				class="flex flex-col lg:flex-row gap-10">
@@ -26,23 +21,23 @@
 				<div class="lg:w-1/2">
 					<form action="{{ path('app_contact') }}" method="post" class="bg-white p-8 rounded-lg shadow-md">
 						<div class="mb-6">
-							<label for="name" class="block text-gray-700 font-medium mb-2">Nom complet</label>
+							<label for="name" class="block text-gray-700 font-medium mb-2">Nom complet <strong class="text-secondary">*</strong> :</label>
 							<input type="text" name="name" id="name" placeholder="Ex. : Jean Dupont" required class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary">
 						</div>
 						<div class="mb-6">
-							<label for="email" class="block text-gray-700 font-medium mb-2">Email</label>
+							<label for="email" class="block text-gray-700 font-medium mb-2">Email <strong class="text-secondary">*</strong> :</label>
 							<input type="email" name="email" id="email" placeholder="Ex. : jean.dupont@email.com" required class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary">
 						</div>
 						<div class="mb-6">
-							<label for="phone" class="block text-gray-700 font-medium mb-2">Téléphone</label>
+							<label for="phone" class="block text-gray-700 font-medium mb-2">Téléphone <strong class="text-secondary">*</strong> :</label>
 							<input type="tel" name="phone" id="phone" placeholder="Ex. : 06 12 34 56 78" required class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary">
 						</div>
 						<div class="mb-6">
-							<label for="subject" class="block text-gray-700 font-medium mb-2">Objet</label>
+							<label for="subject" class="block text-gray-700 font-medium mb-2">Objet <strong class="text-secondary">*</strong> :</label>
 							<input type="text" name="subject" id="subject" placeholder="Ex. : Demande d'information, assistance..." required class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary">
 						</div>
 						<div class="mb-6">
-							<label for="message" class="block text-gray-700 font-medium mb-2">Message</label>
+							<label for="message" class="block text-gray-700 font-medium mb-2">Message <strong class="text-secondary">*</strong> :</label>
 							<textarea name="message" id="message" rows="5" placeholder="Décrivez votre besoin ou posez votre question ici..." required class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary"></textarea>
 						</div>
 						<hr>
@@ -52,7 +47,7 @@
 								<span class="text-sm text-gray-700">
 									J’accepte que mes informations soient utilisées pour traiter ma demande, conformément à la
 									<a href="{{ path('app_politique_confidentialite') }}" class="text-primary underline">politique de confidentialité</a>.
-								</span>
+								<strong class="text-secondary">*</strong></span>
 							</label>
 						</div>
 						<div>

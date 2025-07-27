@@ -17,7 +17,7 @@
 					<article class="bg-white rounded-lg overflow-hidden shadow-md hover:shadow-lg transition duration-300 service-card">
 						<a href="{{ path('app_service_show', { slug: service.slug }) }}" class="block">
 							{% if service.image %}
-								<img src="{{ service.image }}" alt="{{ service.title }}" class="w-full h-48 object-cover">
+								<img src="{{ asset('uploads/services/') ~ service.image }}" alt="{{ service.title }}" class="w-full h-48 object-cover">
 							{% endif %}
 							<div class="p-6">
 								<div class="text-secondary mb-2">

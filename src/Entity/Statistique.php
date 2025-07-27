@@ -23,9 +23,6 @@ class Statistique
     /** @ORM\Column(type="integer") */
     private $value;
 
-    /** @ORM\Column(type="integer") */
-    private $orderIndex = 0;
-
     public function getId(): ?int
     {
         return $this->id;
@@ -50,17 +47,6 @@ class Statistique
     public function setValue(int $value): self
     {
         $this->value = $value;
-        return $this;
-    }
-
-    public function getOrderIndex(): ?int
-    {
-        return $this->orderIndex;
-    }
-
-    public function setOrderIndex(int $orderIndex): self
-    {
-        $this->orderIndex = $orderIndex;
         return $this;
     }
 

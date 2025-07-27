@@ -1,0 +1,42 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Connexion - Ibraza Infogérance{% endblock %}
+
+{% block body %}
+<section class="min-h-screen flex items-center justify-center bg-gray-100 py-20">
+  <div class="w-full max-w-md bg-white p-8 rounded-xl shadow-md">
+    <h1 class="text-3xl font-bold text-center text-secondary mb-6">Connexion</h1>
+
+    {% if error %}
+      <div class="mb-4 p-3 bg-red-100 text-red-700 rounded">
+        {{ error.messageKey|trans(error.messageData, 'security') }}
+      </div>
+    {% endif %}
+
+    {% if app.user %}
+      <div class="mb-3 text-center text-sm text-gray-700">
+        Vous êtes connecté en tant que <strong>{{ app.user.userIdentifier }}</strong> |
+        <a href="{{ path('app_logout') }}" class="text-primary hover:underline">Déconnexion</a>
+      </div>
+    {% endif %}
+
+    <form method="post" class="space-y-4">
+      <div>
+        <label for="inputEmail" class="block text-sm font-medium text-gray-700">Adresse e-mail :</label>
+        <input type="email" name="email" id="inputEmail" class="mt-1 py-1 px-2 block w-full border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary" value="{{ last_username }}" autocomplete="email" required placeholder="admin@ibrazainfogerance.yt" autofocus>
+      </div>
+
+      <div>
+        <label for="inputPassword" class="block text-sm font-medium text-gray-700">Mot de passe :</label>
+        <input type="password" name="password" id="inputPassword" class="mt-1 py-1 px-2 block w-full border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary" autocomplete="current-password" required placeholder="••••••••">
+      </div>
+
+      <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
+
+      <button type="submit" class="w-full py-2 px-4 bg-secondary text-white font-semibold rounded hover:bg-secondary-dark focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-secondary">
+        Se connecter
+      </button>
+    </form>
+  </div>
+</section>
+{% endblock %}

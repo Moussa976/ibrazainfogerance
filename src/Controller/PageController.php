@@ -2,11 +2,14 @@
 
 namespace App\Controller;
 
+use App\Entity\NewsletterSubscriber;
 use App\Entity\Service;
+use App\Repository\NewsletterSubscriberRepository;
 use App\Repository\ServiceRepository;
 use App\Service\BrevoMailerService;
-use App\Service\BrevoService;
+use App\Service\BrevoNewsletterService;
 use App\Service\EmailService;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -20,48 +23,11 @@ class PageController extends AbstractController
 {
 
     /**
-     * @Route("/test-mail", name="test_mail")
-     */
-    public function testApi(BrevoMailerService $brevo): Response
-    {
-        try {
-            $ok = $brevo->envoyer(
-                'moussainssa@outlook.fr',
-                'Moussa',
-                'Test via API',
-                '<p>Bonjour Moussa,<br>Test API Brevo avec message d\'erreur</p>'
-            );
-
-            return new Response($ok ? '✅ Mail API envoyé' : '❌ Échec API');
-        } catch (\Throwable $e) {
-            return new Response('❌ Erreur API : ' . $e->getMessage());
-        }
-    }
-
-    // public function testMail(MailerInterface $mailer): Response
-    // {
-    //     try {
-    //         $email = (new Email())
-    //             ->from(new Address('contact@ibrazainfogerance.yt', 'Ibraza Infogérance'))
-    //             ->to('moussainssa@gmail.com')
-    //             ->subject('Test mail')
-    //             ->text('Ceci est un test simple');
-
-    //         $mailer->send($email);
-
-    //         return new Response('✅ Mail envoyé');
-    //     } catch (\Exception $e) {
-    //         return new Response('❌ Erreur : ' . $e->getMessage());
-    //     }
-    // }
-
-
-    /**
      * @Route("/services", name="app_services")
      */
     public function services(ServiceRepository $serviceRepository): Response
     {
-        $services = $serviceRepository->findAll();
+        $services = $serviceRepository->findBy(['isPublished' => true]);
         return $this->render('pages/services.html.twig', [
             'services' => $services,
         ]);
@@ -186,22 +152,39 @@ class PageController extends AbstractController
     /**
      * @Route("/newsletter", name="app_newsletter", methods={"POST"})
      */
-    public function newsletter(Request $request, BrevoService $brevo): Response
-    {
+    public function newsletter(
+        Request $request,
+        BrevoNewsletterService $brevo,
+        NewsletterSubscriberRepository $subscriberRepo,
+        EntityManagerInterface $em
+    ): Response {
         $email = $request->request->get('email');
         $token = $request->request->get('_token');
 
         if (!$this->isCsrfTokenValid('newsletter_form', $token)) {
-            $this->addFlash('danger', 'Le formulaire a expiré. Veuillez réessayer.');
+            $this->addFlash('danger', '⏳ Le formulaire a expiré. Veuillez réessayer.');
             return $this->redirectToRoute('app_home');
         }
 
         if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
-            $this->addFlash('danger', 'Adresse e-mail invalide.');
+            $this->addFlash('danger', '📛 Adresse e-mail invalide.');
             return $this->redirectToRoute('app_home');
         }
 
+        // Vérifie si l'e-mail existe déjà
+        if ($subscriberRepo->findOneBy(['email' => $email])) {
+            $this->addFlash('info', 'ℹ️ Vous êtes déjà inscrit à notre newsletter.');
+            return $this->redirectToRoute('app_home');
+        }
+
+        // Inscription chez Brevo
         if ($brevo->subscribe($email)) {
+            // Enregistrement en BDD
+            $subscriber = new NewsletterSubscriber();
+            $subscriber->setEmail($email);
+            $em->persist($subscriber);
+            $em->flush();
+
             $this->addFlash('success', '✅ Merci ! Vous êtes bien inscrit à notre newsletter.');
         } else {
             $this->addFlash('danger', '❌ Une erreur est survenue. Merci de réessayer plus tard.');
@@ -209,6 +192,7 @@ class PageController extends AbstractController
 
         return $this->redirectToRoute('app_home');
     }
+
 
 
 

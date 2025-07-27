@@ -1,0 +1,6 @@
+# config/packages/easy_admin.yaml
+easy_admin:
+    translation_domain: messages
+    site_name: 'Administration'
+    design:
+        brand_color: '#4d5c75'

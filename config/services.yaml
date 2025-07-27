@@ -17,7 +17,7 @@ services:
         arguments:
             $logoPath: '%ibraza.logo_path%'
 
-    App\Service\BrevoService:
+    App\Service\BrevoNewsletterService:
         arguments:
             $brevoApiKey: '%env(BREVO_API_KEY)%'
             $brevoListId: '%env(BREVO_LIST_ID)%'
@@ -25,3 +25,5 @@ services:
     App\Service\BrevoMailerService:
         arguments:
             $apiKey: '%env(BREVO_API_KEY)%'
+
+    App\EventSubscriber\ImageCleanupSubscriber: ~

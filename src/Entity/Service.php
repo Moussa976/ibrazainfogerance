@@ -55,6 +55,8 @@ class Service
      */
     private $isPublished = false;
 
+    private ?string $oldImage = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -133,9 +135,17 @@ class Service
 
     public function setImage(?string $image): self
     {
-        $this->image = $image;
+        if ($this->image !== null) {
+            $this->oldImage = $this->image;
+        }
 
+        $this->image = $image;
         return $this;
+    }
+
+    public function getOldImage(): ?string
+    {
+        return $this->oldImage;
     }
 
     public function isPublished(): bool

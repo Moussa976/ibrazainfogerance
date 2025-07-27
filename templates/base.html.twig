@@ -1,42 +1,69 @@
 <!DOCTYPE html>
 <html lang="fr">
-<head>
-    <meta charset="UTF-8">
-    <link rel="icon" type="image/x-icon" href="{{ asset('images/favicon.ico') }}">
-    <title>{% block title %}Ibraza Infogérance{% endblock %}</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<head>
+		<meta charset="UTF-8">
+		<link rel="icon" type="image/x-icon" href="{{ asset('images/favicon.ico') }}">
+		<title>
+			{% block title %}Ibraza Infogérance
+			{% endblock %}
+		</title>
+		<meta
+		name="viewport" content="width=device-width, initial-scale=1.0">
 
-    {# ✅ CDN Tailwind + Font Awesome #}
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    colors: {
-                        primary: '#3e5889',
-                        secondary: '#ba2a32',
-                        accent: '#3b82f6',
-                    }
-                }
-            }
-        }
-    </script>
-    <link rel="stylesheet" href="{{ asset('css/css.css') }}">
-        
-    {% block stylesheets %}{% endblock %}
-</head>
-<body id="top" class="flex flex-col min-h-screen font-sans antialiased text-gray-800">
+		{# ✅ CDN Tailwind + Font Awesome #}
+		<script src="https://cdn.tailwindcss.com"></script>
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+		<script>
+			tailwind.config = {
+theme: {
+extend: {
+colors: {
+primary: '#3e5889',
+secondary: '#ba2a32',
+accent: '#3b82f6'
+}
+}
+}
+}
+		</script>
+		<link rel="stylesheet" href="{{ asset('css/css.css') }}"> {% block stylesheets %}{% endblock %}
+		</head>
+		<body id="top" class="flex flex-col min-h-screen font-sans antialiased text-gray-800">
 
-    {% include 'partials/_navbar.html.twig' %}
+			{% include 'partials/_navbar.html.twig' %}
 
-    <main class="flex-grow">
-        {% block body %}{% endblock %}
-    </main>
+			<main class="flex-grow"> {% block body %}{% endblock %}
+				</main>
 
-    {% include 'partials/_footer.html.twig' %}
+				{% include 'partials/_footer.html.twig' %}
 
-    <script src="{{ asset('js/js.js') }}"></script>
-    {% block javascripts %}{% endblock %}
-</body>
-</html>
+				{# Dans le <body>, à la fin ou près du footer #}
+				<div id="flash-messages" class="fixed bottom-4 right-4 space-y-2 z-50">
+                    {% for label, messages in app.flashes %}
+                        {% for message in messages %}
+                            <div class="flash-message px-4 py-3 rounded-lg shadow-lg text-white
+                                {{ label == 'success' ? 'bg-green-600' :
+                                (label == 'danger' ? 'bg-red-600' :
+                                (label == 'warning' ? 'bg-yellow-500 text-black' : 'bg-blue-600')) }}">
+                                {{ message|raw }}
+                            </div>
+                        {% endfor %}
+                    {% endfor %}
+                </div>
+
+                <script>
+                    // Fade out flash messages after 4 seconds
+                    setTimeout(() => {
+                        document.querySelectorAll('.flash-message').forEach(el => {
+                            el.classList.add('opacity-0', 'transition-opacity', 'duration-500');
+                            setTimeout(() => el.remove(), 500);
+                        });
+                    }, 4000);
+                </script>
+
+
+
+				<script src="{{ asset('js/js.js') }}"></script>
+				{% block javascripts %}{% endblock %}
+			</body>
+		</html>

@@ -35,6 +35,8 @@ class PageContent
     /** @ORM\Column(type="text", nullable=true) */
     private $content;
 
+    private ?string $oldImage = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -80,6 +82,9 @@ class PageContent
 
     public function setImage(?string $image): self
     {
+        if ($this->image && $this->image !== $image) {
+            $this->setOldImage($this->image);
+        }
         $this->image = $image;
         return $this;
     }
@@ -104,6 +109,16 @@ class PageContent
     {
         $this->content = $content;
         return $this;
+    }
+
+    public function setOldImage(?string $oldImage): void
+    {
+        $this->oldImage = $oldImage;
+    }
+
+    public function getOldImage(): ?string
+    {
+        return $this->oldImage;
     }
 
 }

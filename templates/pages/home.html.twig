@@ -3,11 +3,21 @@
 {% block title %}Accueil - Ibraza Infogérance
 {% endblock %}
 
+{% block stylesheets %}
+	<style>
+		.hero {
+			background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('{{ asset("uploads/pages/" ~ (page ? page.getImage : "https://images.unsplash.com/photo-1695668548342-c0c1ad479aee?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D")) }}');
+			background-size: cover;
+			background-position: center;
+		}	
+	</style>
+{% endblock %}
+
 {% block body %}
 	<!-- Hero Section -->
 	<section id="accueil" class="hero min-h-screen flex items-center justify-center text-white">
 		<div class="container mx-auto px-4 text-center">
-			<h1 class="text-4xl md:text-6xl font-bold mb-6 animate-bounce-slow">Votre partenaire en infogérance</h1>
+			<h1 class="text-4xl md:text-6xl font-bold mb-6 animate-bounce-slow">{{ page.title }}</h1>
 			<p class="text-xl md:text-2xl mb-8 max-w-3xl mx-auto">Ibraza Infogérance s'occupe de votre infrastructure informatique et réseaux de A à Z durant toute l'année.</p>
 			<div class="flex flex-col sm:flex-row justify-center gap-4">
 				<a href="#contact" class="bg-primary hover:bg-primary/90 text-white font-bold py-3 px-6 rounded-lg transition duration-300 transform hover:scale-105">Nous contacter</a>
@@ -31,7 +41,7 @@
 					<article class="bg-white rounded-lg overflow-hidden shadow-md hover:shadow-lg transition duration-300 service-card">
 						<a href="{{ path('app_service_show', { slug: service.slug }) }}" class="block">
 							{% if service.image %}
-								<img src="{{ service.image }}" alt="{{ service.title }}" class="w-full h-48 object-cover">
+								<img src="{{ asset('uploads/services/') ~ service.image }}" alt="{{ service.title }}" class="w-full h-48 object-cover">
 							{% endif %}
 							<div class="p-6">
 								<div class="text-secondary mb-2">
@@ -116,7 +126,7 @@
 					</div>
 
 
-					<a href="#contact" class="inline-block bg-primary hover:bg-primary/90 text-white font-bold py-3 px-6 rounded-lg transition duration-300">En savoir plus</a>
+					<a href="{{ path('app_apropos') }}" class="inline-block bg-primary hover:bg-primary/90 text-white font-bold py-3 px-6 rounded-lg transition duration-300">En savoir plus</a>
 				</div>
 			</div>
 		</div>
@@ -224,8 +234,8 @@
 										<i class="fab fa-instagram"></i>
 									</a>
 									<a href="https://www.tiktok.com/@ibraza.infogerance" target="_blank" class="bg-secondary/10 hover:bg-primary/20 text-secondary hover:text-primary p-3 rounded-full transition duration-300">
-									<i class="fab fa-tiktok"></i>
-								</a>
+										<i class="fab fa-tiktok"></i>
+									</a>
 								</div>
 							</div>
 						</div>

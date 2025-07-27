@@ -33,7 +33,12 @@ const observer = new IntersectionObserver((entries) => {
     });
 }, { threshold: 0.5 });
 
-observer.observe(document.querySelector('#client-count').parentElement.parentElement.parentElement);
+const clientCount = document.getElementById('client-count');
+
+if (clientCount && clientCount.parentElement && clientCount.parentElement.parentElement && clientCount.parentElement.parentElement.parentElement) {
+    observer.observe(clientCount.parentElement.parentElement.parentElement);
+}
+
 
 // Smooth scrolling for anchor links
 document.querySelectorAll('a[href^="#"]').forEach(anchor => {
