@@ -108,7 +108,7 @@ class PageController extends AbstractController
 
 
     /**
-     * @Route("/apropos", name="app_apropos")
+     * @Route("/a-propos", name="app_apropos")
      */
     public function apropos(): Response
     {
