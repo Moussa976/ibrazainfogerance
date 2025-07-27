@@ -50,6 +50,11 @@ class Service
      */
     private $image;
 
+    /**
+     * @ORM\Column(type="boolean", options={"default": false})
+     */
+    private $isPublished = false;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -129,6 +134,18 @@ class Service
     public function setImage(?string $image): self
     {
         $this->image = $image;
+
+        return $this;
+    }
+
+    public function isPublished(): bool
+    {
+        return $this->isPublished;
+    }
+
+    public function setIsPublished(bool $isPublished): self
+    {
+        $this->isPublished = $isPublished;
 
         return $this;
     }
