@@ -1,62 +1,59 @@
 <?php
 
-// src/Service/BrevoMailerService.php
 namespace App\Service;
 
-use Psr\Log\LoggerInterface;
 use Symfony\Contracts\HttpClient\HttpClientInterface;
-use Symfony\Contracts\HttpClient\Exception\TransportExceptionInterface;
+use Twig\Environment;
 
 class BrevoMailerService
 {
-    private $client;
-    private $apiKey;
+    private HttpClientInterface $client;
+    private Environment $twig;
+    private string $apiKey;
 
-    private LoggerInterface $logger;
-
-    public function __construct(HttpClientInterface $client, string $apiKey, LoggerInterface $logger)
+    public function __construct(HttpClientInterface $client, Environment $twig, string $apiKey)
     {
         $this->client = $client;
+        $this->twig = $twig;
         $this->apiKey = $apiKey;
-        $this->logger = $logger;
     }
 
-    public function envoyer(string $toEmail, string $toName, string $subject, string $htmlContent, string $fromEmail = 'contact@ibrazainfogerance.yt', string $fromName = 'Ibraza Infogérance'): bool
+    /**
+     * Envoie un e-mail via Brevo (API HTTP)
+     *
+     * @param string $to Adresse du destinataire
+     * @param string $subject Sujet du message
+     * @param string $templatePath Chemin vers le template Twig
+     * @param array $context Données à injecter dans le template
+     *
+     * @throws \RuntimeException en cas d'échec
+     */
+    public function envoyer(string $to, string $subject, string $templatePath, array $context): void
     {
-        try {
-            $response = $this->client->request('POST', 'https://api.brevo.com/v3/smtp/email', [
-                'headers' => [
-                    'accept' => 'application/json',
-                    'api-key' => $this->apiKey,
-                    'content-type' => 'application/json',
+        $html = $this->twig->render($templatePath, $context);
+
+        $response = $this->client->request('POST', 'https://api.brevo.com/v3/smtp/email', [
+            'headers' => [
+                'accept' => 'application/json',
+                'api-key' => $this->apiKey,
+                'content-type' => 'application/json',
+            ],
+            'json' => [
+                'sender' => [
+                    'name' => 'Ibraza Infogérance',
+                    'email' => 'contact@ibrazainfogerance.yt',
                 ],
-                'json' => [
-                    'sender' => [
-                        'name' => $fromName,
-                        'email' => $fromEmail
-                    ],
-                    'to' => [
-                        [
-                            'email' => $toEmail,
-                            'name' => $toName
-                        ]
-                    ],
-                    'subject' => $subject,
-                    'htmlContent' => $htmlContent
-                ]
-            ]);
+                'to' => [
+                    ['email' => $to],
+                ],
+                'subject' => $subject,
+                'htmlContent' => $html,
+            ],
+        ]);
 
-            // DUMP la réponse brute de l’API Brevo (contenu + code HTTP)
-            dump('Status: ' . $response->getStatusCode());
-            dump('Body: ' . $response->getContent(false)); // false = désactive le throw
-            die(); // bloque ici pour lecture directe
-
-            return $response->getStatusCode() === 201;
-        } catch (\Throwable $e) {
-            dump('Erreur API : ' . $e->getMessage());
-            die();
+        if ($response->getStatusCode() !== 201) {
+            $error = $response->getContent(false); // récupère la réponse JSON même en cas d'erreur
+            throw new \RuntimeException("Erreur Brevo ({$response->getStatusCode()}): $error");
         }
     }
-
-
 }
