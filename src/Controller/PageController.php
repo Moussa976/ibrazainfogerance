@@ -24,14 +24,18 @@ class PageController extends AbstractController
      */
     public function testApi(BrevoMailerService $brevo): Response
     {
-        $ok = $brevo->envoyer(
-            'moussainssa@outlook.fr',
-            'Moussa',
-            'Test via API Brevo',
-            '<p>Bonjour Moussa,<br>Ceci est un test depuis l’API Brevo 👌</p>'
-        );
+        try {
+            $ok = $brevo->envoyer(
+                'moussainssa@outlook.fr',
+                'Moussa',
+                'Test via API',
+                '<p>Bonjour Moussa,<br>Test API Brevo avec message d\'erreur</p>'
+            );
 
-        return new Response($ok ? '✅ Mail API envoyé' : '❌ Échec API');
+            return new Response($ok ? '✅ Mail API envoyé' : '❌ Échec API');
+        } catch (\Throwable $e) {
+            return new Response('❌ Erreur API : ' . $e->getMessage());
+        }
     }
 
     // public function testMail(MailerInterface $mailer): Response
