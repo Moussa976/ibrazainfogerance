@@ -25,3 +25,4 @@ services:
     App\Service\BrevoMailerService:
         arguments:
             $apiKey: '%env(BREVO_API_KEY)%'
+            $logger: '@logger'

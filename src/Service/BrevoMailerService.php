@@ -3,6 +3,7 @@
 // src/Service/BrevoMailerService.php
 namespace App\Service;
 
+use Psr\Log\LoggerInterface;
 use Symfony\Contracts\HttpClient\HttpClientInterface;
 use Symfony\Contracts\HttpClient\Exception\TransportExceptionInterface;
 
@@ -11,11 +12,14 @@ class BrevoMailerService
     private $client;
     private $apiKey;
 
-    public function __construct(HttpClientInterface $client, string $apiKey)
-    {
-        $this->client = $client;
-        $this->apiKey = $apiKey;
-    }
+    private LoggerInterface $logger;
+
+public function __construct(HttpClientInterface $client, string $apiKey, LoggerInterface $logger)
+{
+    $this->client = $client;
+    $this->apiKey = $apiKey;
+    $this->logger = $logger;
+}
 
 
 
