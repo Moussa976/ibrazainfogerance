@@ -82,3 +82,25 @@ function toggleContactInfo() {
     info.classList.toggle('hidden');
     icon.classList.toggle('rotate-180');
 }
+
+
+// Axeptio
+window.axeptioSettings = {
+    clientId: "68868623ed5ba5dbf698c3f8",
+    cookiesVersion: "ibrazainfogerance-fr-EU",
+    googleConsentMode: {
+        default: {
+            analytics_storage: "denied",
+            ad_storage: "denied",
+            ad_user_data: "denied",
+            ad_personalization: "denied",
+            wait_for_update: 500
+        }
+    }
+};
+
+(function (d, s) {
+    var t = d.getElementsByTagName(s)[0], e = d.createElement(s);
+    e.async = true; e.src = "//static.axept.io/sdk.js";
+    t.parentNode.insertBefore(e, t);
+})(document, "script");

@@ -64,6 +64,23 @@ accent: '#3b82f6'
 
 
 				<script src="{{ asset('js/js.js') }}"></script>
+
+
+                <!-- Google Analytics 4 (via Axeptio Consent Mode V2) -->
+                <script type="text/plain" data-type="text/javascript" data-name="google-analytics" data-consent="true">
+                    window.dataLayer = window.dataLayer || [];
+                    function gtag(){dataLayer.push(arguments);}
+
+                    gtag('consent', 'default', {
+                        'analytics_storage': 'denied'
+                    });
+
+                    gtag('js', new Date());
+                    gtag('config', 'G-522FDGQ03D', {
+                        anonymize_ip: true
+                    });
+                </script>
+
 				{% block javascripts %}{% endblock %}
 			</body>
 		</html>
