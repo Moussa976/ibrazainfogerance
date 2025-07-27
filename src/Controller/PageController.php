@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Service;
 use App\Repository\ServiceRepository;
+use App\Service\BrevoMailerService;
 use App\Service\BrevoService;
 use App\Service\EmailService;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -21,22 +22,34 @@ class PageController extends AbstractController
     /**
      * @Route("/test-mail", name="test_mail")
      */
-    public function testMail(MailerInterface $mailer): Response
+    public function testApi(BrevoMailerService $brevo): Response
     {
-        try {
-            $email = (new Email())
-                ->from(new Address('contact@ibrazainfogerance.yt', 'Ibraza Infogérance'))
-                ->to('moussainssa@gmail.com')
-                ->subject('Test mail')
-                ->text('Ceci est un test simple');
+        $ok = $brevo->envoyer(
+            'moussainssa@outlook.fr',
+            'Moussa',
+            'Test via API Brevo',
+            '<p>Bonjour Moussa,<br>Ceci est un test depuis l’API Brevo 👌</p>'
+        );
 
-            $mailer->send($email);
-
-            return new Response('✅ Mail envoyé');
-        } catch (\Exception $e) {
-            return new Response('❌ Erreur : ' . $e->getMessage());
-        }
+        return new Response($ok ? '✅ Mail API envoyé' : '❌ Échec API');
     }
+
+    // public function testMail(MailerInterface $mailer): Response
+    // {
+    //     try {
+    //         $email = (new Email())
+    //             ->from(new Address('contact@ibrazainfogerance.yt', 'Ibraza Infogérance'))
+    //             ->to('moussainssa@gmail.com')
+    //             ->subject('Test mail')
+    //             ->text('Ceci est un test simple');
+
+    //         $mailer->send($email);
+
+    //         return new Response('✅ Mail envoyé');
+    //     } catch (\Exception $e) {
+    //         return new Response('❌ Erreur : ' . $e->getMessage());
+    //     }
+    // }
 
 
     /**
@@ -80,7 +93,7 @@ class PageController extends AbstractController
             $subject = $request->request->get('subject');
             $message = $request->request->get('message');
 
-            if (empty($type) || empty($name) || empty($email) || empty($subject) || empty($message)) {
+            if (empty($type) || empty($name) || empty($email) || empty($phone) || empty($subject) || empty($message)) {
                 $this->addFlash('danger', 'Veuillez remplir tous les champs obligatoires.');
                 return $this->redirectToRoute('app_devis');
             }
@@ -121,7 +134,7 @@ class PageController extends AbstractController
             $subject = $request->request->get('subject');
             $message = $request->request->get('message');
 
-            if (empty($name) || empty($email) || empty($subject) || empty($message)) {
+            if (empty($name) || empty($email) || empty($phone) || empty($subject) || empty($message)) {
                 $this->addFlash('danger', 'Veuillez remplir tous les champs obligatoires.');
                 return $this->redirectToRoute('app_contact');
             }

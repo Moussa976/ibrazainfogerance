@@ -21,3 +21,8 @@ services:
         arguments:
             $brevoApiKey: '%env(BREVO_API_KEY)%'
             $brevoListId: '%env(BREVO_LIST_ID)%'
+
+    services:
+    App\Service\BrevoMailerService:
+        arguments:
+            $apiKey: '%env(BREVO_API_KEY)%'
