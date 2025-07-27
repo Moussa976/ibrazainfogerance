@@ -19,7 +19,7 @@ class EmailService
     ) {
         $this->brevo = $brevo;
         $this->twig = $twig;
-        $this->adminEmail = 'moussainssa@outlook.fr';
+        $this->adminEmail = 'contact@ibrazainfogerance.yt';
         $this->logoPath = $logoPath;
     }
 
