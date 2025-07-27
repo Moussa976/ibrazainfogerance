@@ -3,24 +3,30 @@
 namespace App\Controller;
 
 use App\Entity\NewsletterSubscriber;
-use App\Entity\Service;
 use App\Repository\NewsletterSubscriberRepository;
 use App\Repository\ServiceRepository;
-use App\Service\BrevoMailerService;
 use App\Service\BrevoNewsletterService;
 use App\Service\EmailService;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\Mailer\MailerInterface;
-use Symfony\Component\Mime\Address;
-use Symfony\Component\Mime\Email;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Contracts\HttpClient\HttpClientInterface;
+
+
+
+
 
 
 class PageController extends AbstractController
 {
+    private HttpClientInterface $httpClient;
+
+    public function __construct(HttpClientInterface $httpClient)
+    {
+        $this->httpClient = $httpClient;
+    }
 
     /**
      * @Route("/services", name="app_services")
@@ -62,9 +68,25 @@ class PageController extends AbstractController
             $phone = $request->request->get('phone');
             $subject = $request->request->get('subject');
             $message = $request->request->get('message');
+            $recaptchaResponse = $request->request->get('g-recaptcha-response');
 
             if (empty($type) || empty($name) || empty($email) || empty($phone) || empty($subject) || empty($message)) {
                 $this->addFlash('danger', 'Veuillez remplir tous les champs obligatoires.');
+                return $this->redirectToRoute('app_devis');
+            }
+
+            // ✅ Vérification reCAPTCHA
+            $recaptchaCheck = $this->httpClient->request('POST', 'https://www.google.com/recaptcha/api/siteverify', [
+                'body' => [
+                    'secret' => $_ENV['RECAPTCHA_SECRET_KEY'],
+                    'response' => $recaptchaResponse,
+                    'remoteip' => $request->getClientIp(),
+                ],
+            ]);
+            $recaptchaData = $recaptchaCheck->toArray();
+
+            if (!$recaptchaData['success']) {
+                $this->addFlash('danger', '❌ Veuillez valider le reCAPTCHA pour envoyer votre demande.');
                 return $this->redirectToRoute('app_devis');
             }
 
@@ -78,8 +100,11 @@ class PageController extends AbstractController
             return $this->redirectToRoute('app_devis');
         }
 
-        return $this->render('pages/devis.html.twig');
+        return $this->render('pages/devis.html.twig', [
+            'site_key' => $_ENV['RECAPTCHA_SITE_KEY'],
+        ]);
     }
+
 
 
     /**
@@ -95,35 +120,49 @@ class PageController extends AbstractController
      */
     public function contact(Request $request, EmailService $emailService): Response
     {
-
         if ($request->isMethod('POST')) {
-
             $name = $request->request->get('name');
             $email = $request->request->get('email');
             $phone = $request->request->get('phone');
             $subject = $request->request->get('subject');
             $message = $request->request->get('message');
+            $recaptchaResponse = $request->request->get('g-recaptcha-response');
 
             if (empty($name) || empty($email) || empty($phone) || empty($subject) || empty($message)) {
                 $this->addFlash('danger', 'Veuillez remplir tous les champs obligatoires.');
                 return $this->redirectToRoute('app_contact');
             }
 
+            // ✅ Vérification reCAPTCHA
+            $recaptchaCheck = $this->httpClient->request('POST', 'https://www.google.com/recaptcha/api/siteverify', [
+                'body' => [
+                    'secret' => $_ENV['RECAPTCHA_SECRET_KEY'],
+                    'response' => $recaptchaResponse,
+                    'remoteip' => $request->getClientIp(),
+                ],
+            ]);
+            $recaptchaData = $recaptchaCheck->toArray();
+
+            if (!$recaptchaData['success']) {
+                $this->addFlash('danger', '❌ Veuillez valider le reCAPTCHA pour envoyer votre message.');
+                return $this->redirectToRoute('app_contact');
+            }
+
             try {
-                // Appel du service d'envoi d'e-mail
                 $emailService->envoyerContact($name, $email, $phone, $subject, $message);
                 $this->addFlash('success', '✅ Votre message a bien été envoyé.');
-
             } catch (\Exception $e) {
                 $this->addFlash('danger', '❌ Une erreur est survenue lors de l’envoi de votre message.');
-
             }
 
             return $this->redirectToRoute('app_contact');
         }
 
-        return $this->render('pages/contact.html.twig');
+        return $this->render('pages/contact.html.twig', [
+            'site_key' => $_ENV['RECAPTCHA_SITE_KEY'],
+        ]);
     }
+
 
     /**
      * @Route("/mentions-legales", name="app_mentions")

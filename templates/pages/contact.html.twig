@@ -50,6 +50,8 @@
 								<strong class="text-secondary">*</strong></span>
 							</label>
 						</div>
+						<div class="g-recaptcha" data-sitekey="{{ site_key }}"></div>
+
 						<div>
 							<button type="submit" class="bg-primary hover:bg-primary/90 text-white font-bold py-3 px-6 rounded-lg transition duration-300 w-full">
 								Envoyer le message
@@ -136,4 +138,7 @@
 	<div class="h-96 w-full">
 		<iframe src="https://www.google.com/maps?q=1456+Route+d%C3%A9partementale,+Mtsamboro+97630,+Mayotte&output=embed" width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
 	</div>
+{% endblock %}
+{% block javascripts %}
+<script src="https://www.google.com/recaptcha/api.js" async defer></script>
 {% endblock %}
