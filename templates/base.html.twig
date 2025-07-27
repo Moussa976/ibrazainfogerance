@@ -1,13 +1,27 @@
 <!DOCTYPE html>
 <html lang="fr">
 	<head>
+		<!-- Google Tag Manager -->
+		<script>
+			(function (w, d, s, l, i) {
+w[l] = w[l] || [];
+w[l].push({'gtm.start': new Date().getTime(), event: 'gtm.js'});
+var f = d.getElementsByTagName(s)[0],
+j = d.createElement(s),
+dl = l != 'dataLayer' ? '&l=' + l : '';
+j.async = true;
+j.src = 'https://www.googletagmanager.com/gtm.js?id=' + i + dl;
+f.parentNode.insertBefore(j, f);
+})(window, document, 'script', 'dataLayer', 'GTM-KSVGZZRN');
+		</script>
+		<!-- End Google Tag Manager -->
 		<meta charset="UTF-8">
 		<link rel="icon" type="image/x-icon" href="{{ asset('images/favicon.ico') }}">
 		<title>
 			{% block title %}Ibraza Infogérance
 			{% endblock %}
 		</title>
-        {% block seo %}{% endblock %}
+		<meta name="google-site-verification" content="3h049tpZjSu7XUaaUZ24KzCsycatejXHP_OG3EIkiwA"/> {% block seo %}{% endblock %}
 		<meta
 		name="viewport" content="width=device-width, initial-scale=1.0">
 
@@ -29,7 +43,13 @@ accent: '#3b82f6'
 		</script>
 		<link rel="stylesheet" href="{{ asset('css/css.css') }}"> {% block stylesheets %}{% endblock %}
 		</head>
-		<body id="top" class="flex flex-col min-h-screen font-sans antialiased text-gray-800">
+		<body
+			id="top" class="flex flex-col min-h-screen font-sans antialiased text-gray-800">
+			<!-- Google Tag Manager (noscript) -->
+			<noscript>
+				<iframe src="https://www.googletagmanager.com/ns.html?id=GTM-KSVGZZRN" height="0" width="0" style="display:none;visibility:hidden"></iframe>
+			</noscript>
+			<!-- End Google Tag Manager (noscript) -->
 
 			{% include 'partials/_navbar.html.twig' %}
 
@@ -40,42 +60,43 @@ accent: '#3b82f6'
 
 				{# Dans le <body>, à la fin ou près du footer #}
 				<div id="flash-messages" class="fixed bottom-4 right-4 space-y-2 z-50">
-                    {% for label, messages in app.flashes %}
-                        {% for message in messages %}
-                            <div class="flash-message px-4 py-3 rounded-lg shadow-lg text-white
-                                {{ label == 'success' ? 'bg-green-600' :
-                                (label == 'danger' ? 'bg-red-600' :
-                                (label == 'warning' ? 'bg-yellow-500 text-black' : 'bg-blue-600')) }}">
-                                {{ message|raw }}
-                            </div>
-                        {% endfor %}
-                    {% endfor %}
-                </div>
+					{% for label, messages in app.flashes %}
+						{% for message in messages %}
+							<div class="flash-message px-4 py-3 rounded-lg shadow-lg text-white
+									                                {{ label == 'success' ? 'bg-green-600' :
+									                                (label == 'danger' ? 'bg-red-600' :
+									                                (label == 'warning' ? 'bg-yellow-500 text-black' : 'bg-blue-600')) }}">
+								{{ message|raw }}
+							</div>
+						{% endfor %}
+					{% endfor %}
+				</div>
 
-                <script>
-                    // Fade out flash messages after 4 seconds
-                    setTimeout(() => {
-                        document.querySelectorAll('.flash-message').forEach(el => {
-                            el.classList.add('opacity-0', 'transition-opacity', 'duration-500');
-                            setTimeout(() => el.remove(), 500);
-                        });
-                    }, 4000);
-                </script>
-
+				<script>
+					// Fade out flash messages after 4 seconds
+setTimeout(() => {
+document.querySelectorAll('.flash-message').forEach(el => {
+el.classList.add('opacity-0', 'transition-opacity', 'duration-500');
+setTimeout(() => el.remove(), 500);
+});
+}, 4000);
+				</script>
 
 
 				<script src="{{ asset('js/js.js') }}"></script>
 
 
-                <!-- Google Analytics 4 (via Axeptio Consent Mode V2) -->
-                <script async src="https://www.googletagmanager.com/gtag/js?id=G-522FDGQ03D"></script>
-                <script>
-                window.dataLayer = window.dataLayer || [];
-                function gtag(){dataLayer.push(arguments);}
-                gtag('js', new Date());
+				<!-- Google Analytics 4 (via Axeptio Consent Mode V2) -->
+				<script async src="https://www.googletagmanager.com/gtag/js?id=G-522FDGQ03D"></script>
+				<script>
+					window.dataLayer = window.dataLayer || [];
+function gtag() {
+dataLayer.push(arguments);
+}
+gtag('js', new Date());
 
-                gtag('config', 'G-522FDGQ03D');
-                </script>
+gtag('config', 'G-522FDGQ03D');
+				</script>
 
 				{% block javascripts %}{% endblock %}
 			</body>
