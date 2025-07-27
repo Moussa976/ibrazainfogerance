@@ -25,7 +25,7 @@
                     📧 <strong>Email :</strong> {{ user_email }}<br>
                     📞 <strong>Téléphone :</strong> {{ phone|default('Non renseigné') }}<br>
                     📝 <strong>Message :</strong><br>
-                    <div style="margin-top: 5px; white-space: pre-line;">{{ message }}</div>
+                    <div style="margin-top: 5px; white-space: pre-line;">{{ message|nl2br }}</div>
                 </div>
 
                 <p>Notre équipe vous répondra dans les plus brefs délais.</p>
