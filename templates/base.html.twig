@@ -16,14 +16,36 @@ f.parentNode.insertBefore(j, f);
 		</script>
 		<!-- End Google Tag Manager -->
 		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<meta name="description" content="Ibraza Infogérance : cybersécurité, réseau, maintenance informatique à Mayotte. Solutions sur mesure pour entreprises.">
+		<meta name="keywords" content="infogérance, cybersécurité, informatique, réseau, Mayotte, sécurité, maintenance, Ibraza">
+
+		{# Balises Open Graph pour le partage sur les réseaux sociaux #}
+		<meta property="og:title" content="Ibraza Infogérance - Experts en infogérance et cybersécurité à Mayotte">
+		<meta property="og:description" content="Solutions informatiques, maintenance, serveurs, cybersécurité, réseau à Mayotte. Services pour entreprises et collectivités.">
+		<meta property="og:image" content="{{ asset('images/ico.png') }}">
+		<meta property="og:image:type" content="image/png">
+		<meta property="og:image:width" content="768">
+		<meta property="og:image:height" content="768">
+		<meta property="og:type" content="website">
+		<meta property="og:url" content="https://ibrazainfogerance.yt/">
+		<meta property="og:site_name" content="Ibraza Infogérance">
+		<meta property="og:locale" content="fr_FR">
+		<meta name="twitter:card" content="summary_large_image">
+		
+		<link rel="canonical" href="{{ app.request.uri }}">
+
+
+
+		{# Favicon #}
+		<link rel="icon" type="image/png" href="{{ asset('images/ico.png') }}">
 		<link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}">
 		<title>
 			{% block title %}Ibraza Infogérance
 			{% endblock %}
 		</title>
-		<meta name="google-site-verification" content="3h049tpZjSu7XUaaUZ24KzCsycatejXHP_OG3EIkiwA"/> {% block seo %}{% endblock %}
-		<meta
-		name="viewport" content="width=device-width, initial-scale=1.0">
+		{% block seo %}{% endblock %}
+		<meta name="google-site-verification" content="3h049tpZjSu7XUaaUZ24KzCsycatejXHP_OG3EIkiwA"/>
 
 		{# ✅ CDN Tailwind + Font Awesome #}
 		<script src="https://cdn.tailwindcss.com"></script>
@@ -63,9 +85,9 @@ accent: '#3b82f6'
 					{% for label, messages in app.flashes %}
 						{% for message in messages %}
 							<div class="flash-message px-4 py-3 rounded-lg shadow-lg text-white
-									                                {{ label == 'success' ? 'bg-green-600' :
-									                                (label == 'danger' ? 'bg-red-600' :
-									                                (label == 'warning' ? 'bg-yellow-500 text-black' : 'bg-blue-600')) }}">
+																		                                {{ label == 'success' ? 'bg-green-600' :
+																		                                (label == 'danger' ? 'bg-red-600' :
+																		                                (label == 'warning' ? 'bg-yellow-500 text-black' : 'bg-blue-600')) }}">
 								{{ message|raw }}
 							</div>
 						{% endfor %}
