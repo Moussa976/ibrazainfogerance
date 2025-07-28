@@ -6,40 +6,6 @@ menuBtn.addEventListener('click', () => {
     mobileMenu.classList.toggle('hidden');
 });
 
-// Animate stats counters
-function animateValue(id, start, end, duration) {
-    let obj = document.getElementById(id);
-    let startTimestamp = null;
-    const step = (timestamp) => {
-        if (!startTimestamp) startTimestamp = timestamp;
-        const progress = Math.min((timestamp - startTimestamp) / duration, 1);
-        obj.innerHTML = Math.floor(progress * (end - start) + start);
-        if (progress < 1) {
-            window.requestAnimationFrame(step);
-        }
-    };
-    window.requestAnimationFrame(step);
-}
-
-// Start counters when stats section is in view
-const observer = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-        if (entry.isIntersecting) {
-            animateValue('client-count', 0, 150, 2000);
-            animateValue('project-count', 0, 320, 2000);
-            animateValue('support-count', 0, 500, 2000);
-            observer.unobserve(entry.target);
-        }
-    });
-}, { threshold: 0.5 });
-
-const clientCount = document.getElementById('client-count');
-
-if (clientCount && clientCount.parentElement && clientCount.parentElement.parentElement && clientCount.parentElement.parentElement.parentElement) {
-    observer.observe(clientCount.parentElement.parentElement.parentElement);
-}
-
-
 // Smooth scrolling for anchor links
 document.querySelectorAll('a[href^="#"]').forEach(anchor => {
     anchor.addEventListener('click', function (e) {

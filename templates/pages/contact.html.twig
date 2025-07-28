@@ -11,10 +11,10 @@
 	<section class="py-20 bg-gray-50">
 		<div class="container mx-auto px-4">
 			<div class="text-center mb-16">
-				<h1 class="text-3xl md:text-4xl font-bold text-secondary mb-4">Nous contacter</h1>
+				<h1 class="text-3xl md:text-4xl font-bold text-secondary mb-4">{{ page.title }}</h1>
 				<div class="w-20 h-1 bg-primary mx-auto mb-6"></div>
 				<p class="text-gray-600 max-w-2xl mx-auto">
-					Pour toute question, information ou besoin d'assistance, vous pouvez nous joindre facilement via ce formulaire ou par nos coordonnées ci-dessous.
+					{{ page.subtitle }}
 				</p>
 			</div>
 
@@ -69,69 +69,31 @@
 					<div class="bg-white p-8 rounded-lg shadow-md h-full">
 						<h3 class="text-xl font-bold text-primary mb-6">Nos coordonnées</h3>
 						<div class="space-y-6">
-							<div class="flex items-start">
-								<div class="bg-secondary/10 p-3 rounded-full mr-4">
-									<i class="fas fa-map-marker-alt text-secondary"></i>
+							{% for c in coordonnees %}
+								<div class="flex items-start">
+									<div class="bg-secondary/10 p-3 rounded-full mr-4">
+										<i class="{{ c.icon }} text-secondary"></i>
+									</div>
+									<div>
+										<h4 class="font-bold text-primary/90 mb-1">{{ c.type }}</h4>
+										<p class="text-gray-600">{{ c.value|raw }}</p>
+									</div>
 								</div>
-								<div>
-									<h4 class="font-bold text-primary/90 mb-1">Adresse</h4>
-									<p class="text-gray-600">1456 Route départementale, Mtsamboro 97630, Mayotte</p>
-								</div>
-							</div>
-
-							<div class="flex items-start">
-								<div class="bg-secondary/10 p-3 rounded-full mr-4">
-									<i class="fas fa-phone-alt text-secondary"></i>
-								</div>
-								<div>
-									<h4 class="font-bold text-primary/90 mb-1">Téléphone</h4>
-									<p class="text-gray-600">0269 60 67 08</p>
-									<h4 class="font-bold text-primary/90 mb-1">Portable</h4>
-									<p class="text-gray-600">0639 02 18 60</p>
-								</div>
-							</div>
-
-							<div class="flex items-start">
-								<div class="bg-secondary/10 p-3 rounded-full mr-4">
-									<i class="fas fa-envelope text-secondary"></i>
-								</div>
-								<div>
-									<h4 class="font-bold text-primary/90 mb-1">Email</h4>
-									<p class="text-gray-600">contact@ibrazainfogerance.yt</p>
-								</div>
-							</div>
-
-							<div class="flex items-start">
-								<div class="bg-secondary/10 p-3 rounded-full mr-4">
-									<i class="fas fa-clock text-secondary"></i>
-								</div>
-								<div>
-									<h4 class="font-bold text-primary/90 mb-1">Horaires</h4>
-									<p class="text-gray-600">Lundi - Jeudi : 8h à 12h et 14h à 17h</p>
-									<p class="text-gray-600">Vendredi : 8h à 11h30 et 13h30 à 17h</p>
-									<p class="text-gray-600">Samedi: 8h - 16h</p>
-								</div>
-							</div>
+							{% endfor %}
 						</div>
 
-						<div class="mt-8">
-							<h4 class="font-bold mb-4">Suivez-nous</h4>
-							<div class="flex space-x-4">
-								<a href="https://www.facebook.com/profile.php?id=100089623243573" target="_blank" class="bg-secondary/10 hover:bg-primary/20 text-secondary hover:text-primary p-3 rounded-full transition duration-300">
-									<i class="fab fa-facebook-f"></i>
-								</a>
-								<a href="https://www.linkedin.com/company/ibraza-infogerance/about/" target="_blank" class="bg-secondary/10 hover:bg-primary/20 text-secondary hover:text-primary p-3 rounded-full transition duration-300">
-									<i class="fab fa-linkedin-in"></i>
-								</a>
-								<a href="https://www.instagram.com/ibraza.infogerance/" target="_blank" class="bg-secondary/10 hover:bg-primary/20 text-secondary hover:text-primary p-3 rounded-full transition duration-300">
-									<i class="fab fa-instagram"></i>
-								</a>
-								<a href="https://www.tiktok.com/@ibraza.infogerance" target="_blank" class="bg-secondary/10 hover:bg-primary/20 text-secondary hover:text-primary p-3 rounded-full transition duration-300">
-									<i class="fab fa-tiktok"></i>
-								</a>
+						{% if reseauxsociaux %}
+							<div class="mt-8">
+								<h4 class="font-bold text-primary/90 mb-4">Suivez-nous</h4>
+								<div class="flex space-x-4">
+									{% for rs in reseauxsociaux %}
+										<a href="{{ rs.url }}" target="_blank" title="{{ rs.name }}" class="bg-secondary/10 hover:bg-primary/20 text-secondary hover:text-primary p-3 rounded-full transition duration-300">
+											<i class="{{ rs.icon }}"></i>
+										</a>
+									{% endfor %}
+								</div>
 							</div>
-						</div>
-
+						{% endif %}
 					</div>
 				</div>
 			</div>
@@ -140,7 +102,7 @@
 
 	<!-- Google Map -->
 	<div class="h-96 w-full">
-		<iframe src="https://www.google.com/maps?q=1456+Route+d%C3%A9partementale,+Mtsamboro+97630,+Mayotte&output=embed" width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+		{{ mapembed.iframe|raw }}
 	</div>
 {% endblock %}
 {% block javascripts %}

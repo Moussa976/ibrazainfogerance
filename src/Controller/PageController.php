@@ -3,7 +3,12 @@
 namespace App\Controller;
 
 use App\Entity\NewsletterSubscriber;
+use App\Entity\PageContent;
+use App\Repository\CoordonneeRepository;
+use App\Repository\MapEmbedRepository;
 use App\Repository\NewsletterSubscriberRepository;
+use App\Repository\PageContentRepository;
+use App\Repository\ReseauSocialRepository;
 use App\Repository\ServiceRepository;
 use App\Service\BrevoNewsletterService;
 use App\Service\EmailService;
@@ -31,11 +36,13 @@ class PageController extends AbstractController
     /**
      * @Route("/services", name="app_services")
      */
-    public function services(ServiceRepository $serviceRepository): Response
+    public function services(ServiceRepository $serviceRepository, PageContentRepository $pageContentRepository): Response
     {
         $services = $serviceRepository->findBy(['isPublished' => true]);
+        $page = $pageContentRepository->findOneBy(['slug' => 'services']);
         return $this->render('pages/services.html.twig', [
             'services' => $services,
+            'page' => $page,
         ]);
     }
 
@@ -58,7 +65,7 @@ class PageController extends AbstractController
     /**
      * @Route("/devis", name="app_devis", methods={"GET", "POST"})
      */
-    public function devis(Request $request, EmailService $emailService): Response
+    public function devis(Request $request, EmailService $emailService, PageContentRepository $pageContentRepository): Response
     {
         if ($request->isMethod('POST')) {
             $type = $request->request->get('type');
@@ -99,9 +106,11 @@ class PageController extends AbstractController
 
             return $this->redirectToRoute('app_devis');
         }
+        $page = $pageContentRepository->findOneBy(['slug' => 'demande-de-devis']);
 
         return $this->render('pages/devis.html.twig', [
             'site_key' => $_ENV['RECAPTCHA_SITE_KEY'],
+            'page' => $page,
         ]);
     }
 
@@ -110,15 +119,18 @@ class PageController extends AbstractController
     /**
      * @Route("/a-propos", name="app_apropos")
      */
-    public function apropos(): Response
+    public function apropos(PageContentRepository $pageContentRepository): Response
     {
-        return $this->render('pages/apropos.html.twig');
+        $page = $pageContentRepository->findOneBy(['slug' => 'apropos']);
+        return $this->render('pages/apropos.html.twig',[
+            'page' => $page,
+        ]);
     }
 
     /**
      * @Route("/contact", name="app_contact", methods={"GET", "POST"})
      */
-    public function contact(Request $request, EmailService $emailService): Response
+    public function contact(Request $request, EmailService $emailService, PageContentRepository $pageContentRepository, CoordonneeRepository $coordonneeRepository, MapEmbedRepository $mapEmbedRepository, ReseauSocialRepository $reseauSocialRepository): Response
     {
         if ($request->isMethod('POST')) {
             $name = $request->request->get('name');
@@ -157,9 +169,30 @@ class PageController extends AbstractController
 
             return $this->redirectToRoute('app_contact');
         }
+        $page = $pageContentRepository->findOneBy(['slug' => 'nous-contacter']);
+
+        $coordonneesRaw = $coordonneeRepository->findAll();
+        $coordonnees = [];
+        foreach ($coordonneesRaw as $coordonnee) {
+            $cleanValue = preg_replace('/<\/?div[^>]*>/i', '', $coordonnee->getValue());
+            $coordonnees[] = [
+                'type' => $coordonnee->getType(),
+                'icon' => $coordonnee->getIcon(),
+                'value' => $cleanValue,
+            ];
+        }
+
+        
+        $reseauxsociaux = $reseauSocialRepository->findAll();
+        $mapembed = $mapEmbedRepository->findOneBy(['id' => '1']);
 
         return $this->render('pages/contact.html.twig', [
             'site_key' => $_ENV['RECAPTCHA_SITE_KEY'],
+            'page' => $page,
+            'coordonnees' => $coordonnees,
+            'reseauxsociaux' => $reseauxsociaux,
+            'mapembed' => $mapembed,
+
         ]);
     }
 
