@@ -268,8 +268,26 @@ class PageController extends AbstractController
     /**
      * @Route("/newsletter/fragment", name="app_newsletter_fragment", methods={"GET"})
      */
-    public function newsletterFragment(): Response
+    public function newsletterFragment(Request $request): Response
     {
+        if ($request->isMethod('POST')) {
+            $recaptchaResponse = $request->request->get('g-recaptcha-response');
+        // ✅ Vérification reCAPTCHA
+            $recaptchaCheck = $this->httpClient->request('POST', 'https://www.google.com/recaptcha/api/siteverify', [
+                'body' => [
+                    'secret' => $_ENV['RECAPTCHA_SECRET_KEY'],
+                    'response' => $recaptchaResponse,
+                    'remoteip' => $request->getClientIp(),
+                ],
+            ]);
+            $recaptchaData = $recaptchaCheck->toArray();
+
+            if (!$recaptchaData['success']) {
+                $this->addFlash('danger', '❌ Veuillez valider le reCAPTCHA pour vous abonner.');
+                return $this->redirectToRoute('app_home');
+            }
+        }
+
         return $this->render('partials/_newsletter.html.twig', [
             'site_key' => $_ENV['RECAPTCHA_SITE_KEY'],
         ]);
