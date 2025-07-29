@@ -233,46 +233,21 @@ class PageController extends AbstractController
         $email = $request->request->get('email');
         $token = $request->request->get('_token');
 
-        if (!$this->isCsrfTokenValid('newsletter_form', $token)) {
-            $this->addFlash('danger', '⏳ Le formulaire a expiré. Veuillez réessayer.');
-            return $this->redirectToRoute('app_home');
-        }
-
-        if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
-            $this->addFlash('danger', '📛 Adresse e-mail invalide.');
-            return $this->redirectToRoute('app_home');
-        }
-
-        // Vérifie si l'e-mail existe déjà
-        if ($subscriberRepo->findOneBy(['email' => $email])) {
-            $this->addFlash('info', 'ℹ️ Vous êtes déjà inscrit à notre newsletter.');
-            return $this->redirectToRoute('app_home');
-        }
-
-        // Inscription chez Brevo
-        if ($brevo->subscribe($email)) {
-            // Enregistrement en BDD
-            $subscriber = new NewsletterSubscriber();
-            $subscriber->setEmail($email);
-            $em->persist($subscriber);
-            $em->flush();
-
-            $this->addFlash('success', '✅ Merci ! Vous êtes bien inscrit à notre newsletter.');
-        } else {
-            $this->addFlash('danger', '❌ Une erreur est survenue. Merci de réessayer plus tard.');
-        }
-
-        return $this->redirectToRoute('app_home');
-    }
-
-    /**
-     * @Route("/newsletter/fragment", name="app_newsletter_fragment", methods={"GET"})
-     */
-    public function newsletterFragment(Request $request): Response
-    {
         if ($request->isMethod('POST')) {
             $recaptchaResponse = $request->request->get('g-recaptcha-response');
-        // ✅ Vérification reCAPTCHA
+
+            if (!$this->isCsrfTokenValid('newsletter_form', $token)) {
+                $this->addFlash('danger', '⏳ Le formulaire a expiré. Veuillez réessayer.');
+                return $this->redirectToRoute('app_home');
+            }
+
+            if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+                $this->addFlash('danger', '📛 Adresse e-mail invalide.');
+                return $this->redirectToRoute('app_home');
+            }
+
+
+            // ✅ Vérification reCAPTCHA
             $recaptchaCheck = $this->httpClient->request('POST', 'https://www.google.com/recaptcha/api/siteverify', [
                 'body' => [
                     'secret' => $_ENV['RECAPTCHA_SECRET_KEY'],
@@ -286,7 +261,35 @@ class PageController extends AbstractController
                 $this->addFlash('danger', '❌ Veuillez valider le reCAPTCHA pour vous abonner.');
                 return $this->redirectToRoute('app_home');
             }
+
+            // Vérifie si l'e-mail existe déjà
+            if ($subscriberRepo->findOneBy(['email' => $email])) {
+                $this->addFlash('danger', '❌ Vous êtes déjà inscrit à notre newsletter.');
+                return $this->redirectToRoute('app_home');
+            }
+
+            // Inscription chez Brevo
+            if ($brevo->subscribe($email)) {
+                // Enregistrement en BDD
+                $subscriber = new NewsletterSubscriber();
+                $subscriber->setEmail($email);
+                $em->persist($subscriber);
+                $em->flush();
+
+                $this->addFlash('success', '✅ Merci ! Vous êtes bien inscrit à notre newsletter.');
+            } else {
+                $this->addFlash('danger', '❌ Une erreur est survenue. Merci de réessayer plus tard.');
+            }
         }
+
+        return $this->redirectToRoute('app_home');
+    }
+
+    /**
+     * @Route("/newsletter/fragment", name="app_newsletter_fragment", methods={"GET"})
+     */
+    public function newsletterFragment(): Response
+    {
 
         return $this->render('partials/_newsletter.html.twig', [
             'site_key' => $_ENV['RECAPTCHA_SITE_KEY'],
