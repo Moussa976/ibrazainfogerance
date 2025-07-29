@@ -122,7 +122,7 @@ class PageController extends AbstractController
     public function apropos(PageContentRepository $pageContentRepository): Response
     {
         $page = $pageContentRepository->findOneBy(['slug' => 'apropos']);
-        return $this->render('pages/apropos.html.twig',[
+        return $this->render('pages/apropos.html.twig', [
             'page' => $page,
         ]);
     }
@@ -182,7 +182,7 @@ class PageController extends AbstractController
             ];
         }
 
-        
+
         $reseauxsociaux = $reseauSocialRepository->findAll();
         $mapembed = $mapEmbedRepository->findOneBy(['id' => '1']);
 
@@ -263,6 +263,16 @@ class PageController extends AbstractController
         }
 
         return $this->redirectToRoute('app_home');
+    }
+
+    /**
+     * @Route("/newsletter/fragment", name="app_newsletter_fragment", methods={"GET"})
+     */
+    public function newsletterFragment(): Response
+    {
+        return $this->render('partials/_newsletter.html.twig', [
+            'site_key' => $_ENV['RECAPTCHA_SITE_KEY'],
+        ]);
     }
 
 

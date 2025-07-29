@@ -70,3 +70,11 @@ window.axeptioSettings = {
     e.async = true; e.src = "//static.axept.io/sdk.js";
     t.parentNode.insertBefore(e, t);
 })(document, "script");
+
+
+// Pour le newsletter
+fetch('/newsletter/fragment')
+    .then(response => response.text())
+    .then(html => {
+        document.querySelector('#newsletter-container').innerHTML = html;
+    });

@@ -71,7 +71,7 @@
 							</span>
 						</label>
 					</div>
-					<div class="g-recaptcha" data-sitekey="{{ site_key }}"></div>
+					<div class="g-recaptcha my-1" data-sitekey="{{ site_key }}"></div>
 					<div>
 						<button type="submit" class="bg-primary hover:bg-primary/90 text-white font-bold py-3 px-6 rounded-lg transition duration-300 w-full">
 							Envoyer la demande de devis
@@ -101,6 +101,4 @@ companyInput.removeAttribute('required');
 typeSelect.addEventListener('change', toggleCompanyField);
 window.addEventListener('DOMContentLoaded', toggleCompanyField);
 	</script>
-	<script src="https://www.google.com/recaptcha/api.js" async defer></script>
-
 {% endblock %}

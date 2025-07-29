@@ -1,0 +1,13 @@
+<h4 class="text-xl font-bold mb-4">Newsletter</h4>
+<p class="text-white mb-4">Abonnez-vous pour recevoir nos actualités et offres spéciales.</p>
+<form action="{{ path('app_newsletter') }}" method="post">
+	<div class="g-recaptcha my-1" data-sitekey="{{ site_key }}"></div>
+	<div class="flex">
+		<input type="email" name="email" required placeholder="Votre email" class="px-4 py-2 rounded-l-lg focus:outline-none text-gray-800 w-full">
+		<input type="hidden" name="_token" value="{{ csrf_token('newsletter_form') }}">
+		<button type="submit" class="bg-secondary hover:bg-secondary/90 px-4 py-2 rounded-r-lg transition duration-300">
+			<i class="fas fa-paper-plane"></i>
+		</button>
+	</div>
+
+</form>

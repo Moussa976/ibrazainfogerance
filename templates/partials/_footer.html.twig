@@ -72,16 +72,28 @@
 			</div>
 
 			<div>
+
 				<h4 class="text-lg font-bold mb-4">Newsletter</h4>
 				<p class="text-gray-400 mb-4">Abonnez-vous pour recevoir nos actualités et offres spéciales.</p>
-				<form action="{{ path('app_newsletter') }}" method="post" class="flex">
-					<input type="email" name="email" required placeholder="Votre email" class="px-4 py-2 rounded-l-lg focus:outline-none text-gray-800 w-full">
-					<input type="hidden" name="_token" value="{{ csrf_token('newsletter_form') }}">
-					<button type="submit" class="bg-primary hover:bg-primary/90 px-4 py-2 rounded-r-lg transition duration-300">
-						<i class="fas fa-paper-plane"></i>
-					</button>
-				</form>
+				<button class="px-4 py-2 bg-primary/60 text-white rounded hover:bg-primary/70" onclick="document.getElementById('modal-newsletter').classList.remove('hidden')">Je m'abonne
+					<i class="fas fa-paper-plane"></i>
+				</button>
+				<div id="modal-newsletter" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 hidden">
+					<div class="bg-primary rounded-lg shadow-lg p-6 w-full max-w-md relative">
+						<!-- Bouton de fermeture -->
+						<button class="absolute top-2 right-2 text-gray-500 hover:text-gray-700" onclick="document.getElementById('modal-newsletter').classList.add('hidden')">
+							✖
+						</button>
 
+						<!-- Contenu de la modal -->
+						<div id="newsletter-container">
+						</div>
+
+						<button class="mt-4 px-4 py-2 bg-green-600 text-white rounded hover:bg-green-700" onclick="document.getElementById('modal-newsletter').classList.add('hidden')">
+							Fermer
+						</button>
+					</div>
+				</div>
 			</div>
 		</div>
 

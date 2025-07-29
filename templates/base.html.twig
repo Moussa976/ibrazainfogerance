@@ -1,23 +1,28 @@
 <!DOCTYPE html>
 <html lang="fr">
-	<head>
+
+<head>
   <!-- Google Tag Manager -->
   <script>
-    (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':new Date().getTime(),event:'gtm.js'});
-    var f=d.getElementsByTagName(s)[0], j=d.createElement(s), dl=l!='dataLayer'?'&l='+l:'';
-    j.async=true; j.src='https://www.googletagmanager.com/gtm.js?id='+i+dl; f.parentNode.insertBefore(j,f);
-    })(window,document,'script','dataLayer','GTM-KSVGZZRN');
+    (function (w, d, s, l, i) {
+      w[l] = w[l] || []; w[l].push({ 'gtm.start': new Date().getTime(), event: 'gtm.js' });
+      var f = d.getElementsByTagName(s)[0], j = d.createElement(s), dl = l != 'dataLayer' ? '&l=' + l : '';
+      j.async = true; j.src = 'https://www.googletagmanager.com/gtm.js?id=' + i + dl; f.parentNode.insertBefore(j, f);
+    })(window, document, 'script', 'dataLayer', 'GTM-KSVGZZRN');
   </script>
   <!-- End Google Tag Manager -->
 
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="Ibraza Infogérance : cybersécurité, réseau, maintenance informatique à Mayotte. Solutions sur mesure pour entreprises.">
-  <meta name="keywords" content="infogérance, cybersécurité, informatique, réseau, Mayotte, sécurité, maintenance, Ibraza">
+  <meta name="description"
+    content="Ibraza Infogérance : cybersécurité, réseau, maintenance informatique à Mayotte. Solutions sur mesure pour entreprises.">
+  <meta name="keywords"
+    content="infogérance, cybersécurité, informatique, réseau, Mayotte, sécurité, maintenance, Ibraza">
 
   {# Open Graph pour réseaux sociaux #}
   <meta property="og:title" content="Ibraza Infogérance - Experts en infogérance et cybersécurité à Mayotte">
-  <meta property="og:description" content="Solutions informatiques, maintenance, serveurs, cybersécurité, réseau à Mayotte. Services pour entreprises et collectivités.">
+  <meta property="og:description"
+    content="Solutions informatiques, maintenance, serveurs, cybersécurité, réseau à Mayotte. Services pour entreprises et collectivités.">
   <meta property="og:image" content="{{ asset('images/favicons/128x128.png') }}">
   <meta property="og:image:type" content="image/png">
   <meta property="og:image:width" content="128">
@@ -44,7 +49,7 @@
 
   <title>{% block title %}Ibraza Infogérance{% endblock %}</title>
   {% block seo %}{% endblock %}
-  <meta name="google-site-verification" content="3h049tpZjSu7XUaaUZ24KzCsycatejXHP_OG3EIkiwA"/>
+  <meta name="google-site-verification" content="3h049tpZjSu7XUaaUZ24KzCsycatejXHP_OG3EIkiwA" />
 
   {# ✅ CDN Tailwind + Font Awesome #}
   <script src="https://cdn.tailwindcss.com"></script>
@@ -67,61 +72,65 @@
   {% block stylesheets %}{% endblock %}
 </head>
 
-		<body
-			id="top" class="flex flex-col min-h-screen font-sans antialiased text-gray-800">
-			<!-- Google Tag Manager (noscript) -->
-			<noscript>
-				<iframe src="https://www.googletagmanager.com/ns.html?id=GTM-KSVGZZRN" height="0" width="0" style="display:none;visibility:hidden"></iframe>
-			</noscript>
-			<!-- End Google Tag Manager (noscript) -->
+<body id="top" class="flex flex-col min-h-screen font-sans antialiased text-gray-800">
+  <!-- Google Tag Manager (noscript) -->
+  <noscript>
+    <iframe src="https://www.googletagmanager.com/ns.html?id=GTM-KSVGZZRN" height="0" width="0"
+      style="display:none;visibility:hidden"></iframe>
+  </noscript>
+  <!-- End Google Tag Manager (noscript) -->
 
-			{% include 'partials/_navbar.html.twig' %}
+  {% include 'partials/_navbar.html.twig' %}
 
-			<main class="flex-grow"> {% block body %}{% endblock %}
-				</main>
+  <main class="flex-grow"> {% block body %}{% endblock %}
+  </main>
 
-				{% include 'partials/_footer.html.twig' %}
+  {% include 'partials/_footer.html.twig' %}
 
-				{# Dans le <body>, à la fin ou près du footer #}
-				<div id="flash-messages" class="fixed bottom-4 right-4 space-y-2 z-50">
-					{% for label, messages in app.flashes %}
-						{% for message in messages %}
-							<div class="flash-message px-4 py-3 rounded-lg shadow-lg text-white
+  {# Dans le
+
+  <body>, à la fin ou près du footer #}
+    <div id="flash-messages" class="fixed bottom-4 right-4 space-y-2 z-50">
+      {% for label, messages in app.flashes %}
+      {% for message in messages %}
+      <div
+        class="flash-message px-4 py-3 rounded-lg shadow-lg text-white
 																		                                {{ label == 'success' ? 'bg-green-600' :
 																		                                (label == 'danger' ? 'bg-red-600' :
 																		                                (label == 'warning' ? 'bg-yellow-500 text-black' : 'bg-blue-600')) }}">
-								{{ message|raw }}
-							</div>
-						{% endfor %}
-					{% endfor %}
-				</div>
+        {{ message|raw }}
+      </div>
+      {% endfor %}
+      {% endfor %}
+    </div>
 
-				<script>
-					// Fade out flash messages after 4 seconds
-setTimeout(() => {
-document.querySelectorAll('.flash-message').forEach(el => {
-el.classList.add('opacity-0', 'transition-opacity', 'duration-500');
-setTimeout(() => el.remove(), 500);
-});
-}, 4000);
-				</script>
+    <script>
+      // Fade out flash messages after 4 seconds
+      setTimeout(() => {
+        document.querySelectorAll('.flash-message').forEach(el => {
+          el.classList.add('opacity-0', 'transition-opacity', 'duration-500');
+          setTimeout(() => el.remove(), 500);
+        });
+      }, 4000);
+    </script>
+
+    <script src="https://www.google.com/recaptcha/api.js" async defer></script>
+    <script src="{{ asset('js/js.js') }}"></script>
 
 
-				<script src="{{ asset('js/js.js') }}"></script>
+    <!-- Google Analytics 4 (via Axeptio Consent Mode V2) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-522FDGQ03D"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag() {
+        dataLayer.push(arguments);
+      }
+      gtag('js', new Date());
 
+      gtag('config', 'G-522FDGQ03D');
+    </script>
 
-				<!-- Google Analytics 4 (via Axeptio Consent Mode V2) -->
-				<script async src="https://www.googletagmanager.com/gtag/js?id=G-522FDGQ03D"></script>
-				<script>
-					window.dataLayer = window.dataLayer || [];
-function gtag() {
-dataLayer.push(arguments);
-}
-gtag('js', new Date());
+    {% block javascripts %}{% endblock %}
+  </body>
 
-gtag('config', 'G-522FDGQ03D');
-				</script>
-
-				{% block javascripts %}{% endblock %}
-			</body>
-		</html>
+</html>

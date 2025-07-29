@@ -54,7 +54,7 @@
 								<strong class="text-secondary">*</strong></span>
 							</label>
 						</div>
-						<div class="g-recaptcha" data-sitekey="{{ site_key }}"></div>
+						<div class="g-recaptcha my-1" data-sitekey="{{ site_key }}"></div>
 
 						<div>
 							<button type="submit" class="bg-primary hover:bg-primary/90 text-white font-bold py-3 px-6 rounded-lg transition duration-300 w-full">
@@ -104,7 +104,4 @@
 	<div class="h-96 w-full">
 		{{ mapembed.iframe|raw }}
 	</div>
-{% endblock %}
-{% block javascripts %}
-<script src="https://www.google.com/recaptcha/api.js" async defer></script>
 {% endblock %}
