@@ -79,18 +79,8 @@
       style="display:none;visibility:hidden"></iframe>
   </noscript>
   <!-- End Google Tag Manager (noscript) -->
-
-  {% include 'partials/_navbar.html.twig' %}
-
-  <main class="flex-grow"> {% block body %}{% endblock %}
-  </main>
-
-  {% include 'partials/_footer.html.twig' %}
-
-  {# Dans le
-
-  <body>, à la fin ou près du footer #}
-    <div id="flash-messages" class="fixed bottom-4 right-4 space-y-2 z-50">
+ {# Dans le <body>, à la fin ou près du footer #}
+    <div id="flash-messages" class="fixed top-20 right-4 space-y-2 z-100">
       {% for label, messages in app.flashes %}
       {% for message in messages %}
       <div
@@ -103,6 +93,14 @@
       {% endfor %}
       {% endfor %}
     </div>
+  {% include 'partials/_navbar.html.twig' %}
+
+  <main class="flex-grow"> {% block body %}{% endblock %}
+  </main>
+
+  {% include 'partials/_footer.html.twig' %}
+
+ 
 
     <script>
       // Fade out flash messages after 4 seconds
