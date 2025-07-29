@@ -258,7 +258,7 @@ class PageController extends AbstractController
             $recaptchaData = $recaptchaCheck->toArray();
 
             if (!$recaptchaData['success']) {
-                $this->addFlash('danger', '❌ Veuillez valider le reCAPTCHA pour vous abonner.');
+                $this->addFlash('danger', "❌ Veuillez valider le reCAPTCHA pour vous abonner. Merci d'actualiser la page");
                 return $this->redirectToRoute('app_home');
             }
 
